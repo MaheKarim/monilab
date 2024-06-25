@@ -27,7 +27,7 @@ Route::namespace('Auth')->group(function () {
 });
 
 Route::middleware('admin')->group(function () {
-    Route::controller('AdminController')->group(function(){
+    Route::controller('AdminController')->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard');
         Route::get('chart/deposit-withdraw', 'depositAndWithdrawReport')->name('chart.deposit.withdraw');
         Route::get('chart/transaction', 'transactionReport')->name('chart.transaction');
@@ -37,69 +37,76 @@ Route::middleware('admin')->group(function () {
         Route::post('password', 'passwordUpdate')->name('password.update');
 
         //Notification
-        Route::get('notifications','notifications')->name('notifications');
-        Route::get('notification/read/{id}','notificationRead')->name('notification.read');
-        Route::get('notifications/read-all','readAllNotification')->name('notifications.read.all');
-        Route::post('notifications/delete-all','deleteAllNotification')->name('notifications.delete.all');
-        Route::post('notifications/delete-single/{id}','deleteSingleNotification')->name('notifications.delete.single');
+        Route::get('notifications', 'notifications')->name('notifications');
+        Route::get('notification/read/{id}', 'notificationRead')->name('notification.read');
+        Route::get('notifications/read-all', 'readAllNotification')->name('notifications.read.all');
+        Route::post('notifications/delete-all', 'deleteAllNotification')->name('notifications.delete.all');
+        Route::post('notifications/delete-single/{id}', 'deleteSingleNotification')->name('notifications.delete.single');
 
         //Report Bugs
-        Route::get('request-report','requestReport')->name('request.report');
-        Route::post('request-report','reportSubmit');
+        Route::get('request-report', 'requestReport')->name('request.report');
+        Route::post('request-report', 'reportSubmit');
 
         Route::get('download-attachments/{file_hash}', 'downloadAttachment')->name('download.attachment');
     });
 
-    //Hyip Addon -- Payment Accept
-    Route::get('hyip/addon/payment-accept', 'HyipAddonController@paymentAcceptAll')->name('hyip.addon.payment.accept');
-    Route::post('hyip/addon/payment-accept/store', 'HyipAddonController@paymentAcceptStore')->name('hyip.addon.payment.accept.store');
-    Route::post('hyip/addon/payment-accept/update/{id}', 'HyipAddonController@paymentAcceptUpdate')->name('hyip.addon.payment.accept.update');
+    Route::controller('HyipAddonController')->name('hyip.addon.')->prefix('hyip/addon')->group(function () {
+        //Hyip Addon -- Payment Accept
+        Route::get('payment-accept', 'paymentAcceptAll')->name('payment.accept');
+        Route::post('payment-accept/store', 'paymentAcceptStore')->name('payment.accept.store');
+        Route::post('payment-accept/update/{id}', 'paymentAcceptUpdate')->name('payment.accept.update');
 
-    //Hyip Addon -- Feature
-    Route::get('hyip/addon/feature', 'HyipAddonController@featureAll')->name('hyip.addon.feature');
-    Route::post('hyip/addon/feature/store', 'HyipAddonController@featureStore')->name('hyip.addon.feature.store');
-    Route::post('hyip/addon/feature/update/{id}', 'HyipAddonController@featureUpdate')->name('hyip.addon.feature.update');
+        //Hyip Addon -- Feature
+        Route::get('feature', 'featureAll')->name('feature');
+        Route::post('feature/store', 'featureStore')->name('feature.store');
+        Route::post('feature/update/{id}', 'featureUpdate')->name('feature.update');
 
-    //Hyip Addon -- Type
-    Route::get('hyip/addon/type', 'HyipAddonController@typeAll')->name('hyip.addon.type');
-    Route::post('hyip/addon/type/store', 'HyipAddonController@typeStore')->name('hyip.addon.type.store');
-    Route::post('hyip/addon/type/update/{id}', 'HyipAddonController@typeUpdate')->name('hyip.addon.type.update');
+        //Hyip Addon -- Type
+        Route::get('type', 'typeAll')->name('type');
+        Route::post('type/store', 'typeStore')->name('type.store');
+        Route::post('type/update/{id}', 'typeUpdate')->name('type.update');
 
-    //Hyip Addon -- Poll
-    Route::get('hyip/addon/poll', 'HyipAddonController@pollAll')->name('hyip.addon.poll');
-    Route::post('hyip/addon/poll/store', 'HyipAddonController@pollStore')->name('hyip.addon.poll.store');
-    Route::post('hyip/addon/poll/update/{id}', 'HyipAddonController@pollUpdate')->name('hyip.addon.poll.update');
-
-    //Hyip
-    Route::get('hyip/admin/list', 'HyipController@adminHyipList')->name('main.hyip.admin.list');
-    Route::get('hyip/user/list', 'HyipController@userHyipList')->name('main.hyip.user.list');
-    Route::get('hyip/new', 'HyipController@hyipNew')->name('main.hyip.new');
-    Route::post('hyip/store', 'HyipController@hyipStore')->name('main.hyip.store');
-    Route::get('hyip/edit/{id}', 'HyipController@hyipEdit')->name('main.hyip.edit');
-    Route::post('hyip/update/{id}', 'HyipController@hyipUpdate')->name('main.hyip.update');
-
-    //User Hyip Update Request List
-    Route::get('hyip/user/update/list', 'HyipController@userHyipUpdateRequestList')->name('main.hyip.user.update.list');
-    Route::get('hyip/user/update/{id}', 'HyipController@userHyipUpdateApprove')->name('main.hyip.user.update.approve');
-    Route::get('hyip/user/reject/{id}', 'HyipController@userHyipUpdateReject')->name('main.hyip.user.update.reject');
+        //Hyip Addon -- Poll
+        Route::get('poll', 'pollAll')->name('poll');
+        Route::post('poll/store', 'pollStore')->name('poll.store');
+        Route::post('poll/update/{id}', 'pollUpdate')->name('poll.update');
+    });
 
 
-    Route::get('hyip/report', 'HyipController@report')->name('main.hyip.report');
+    Route::controller('HyipController')->name('main.hyip.')->prefix('hyip')->group(function () {
+        //Hyip
+        Route::get('admin/list', 'adminHyipList')->name('admin.list');
+        Route::get('user/list', 'userHyipList')->name('user.list');
+        Route::get('new', 'hyipNew')->name('new');
+        Route::post('store', 'hyipStore')->name('store');
+        Route::get('edit/{id}', 'hyipEdit')->name('edit');
+        Route::post('update/{id}', 'hyipUpdate')->name('update');
 
-    //Advertise Package
-    Route::get('advertise/package', 'AdvertiseController@packageAll')->name('advertise.package');
-    Route::post('advertise/package/store', 'AdvertiseController@packageStore')->name('advertise.package.store');
-    Route::post('advertise/package/update/{id}', 'AdvertiseController@packageUpdate')->name('advertise.package.update');
+        //User Hyip Update Request List
+        Route::get('user/update/list', 'userHyipUpdateRequestList')->name('user.update.list');
+        Route::get('user/update/{id}', 'userHyipUpdateApprove')->name('user.update.approve');
+        Route::get('user/reject/{id}', 'userHyipUpdateReject')->name('user.update.reject');
 
-    //Advertise
-    Route::get('advertise/admin', 'AdvertiseController@adminAdds')->name('advertise.admin');
-    Route::get('advertise/user', 'AdvertiseController@userAdds')->name('advertise.user');
-    Route::post('advertise/admin/store', 'AdvertiseController@adminAddsStore')->name('advertise.admin.store');
-    Route::post('advertise/admin/update/{id}', 'AdvertiseController@addsUpdate')->name('advertise.update');
+        // Hyip Report
+        Route::get('report', 'HyipController@report')->name('main.hyip.report');
+    });
 
+
+    Route::controller('AdvertiseController')->name('advertise.')->prefix('advertise')->group(function () {
+        //Advertise Package
+        Route::get('package', 'packageAll')->name('package');
+        Route::post('package/store', 'packageStore')->name('package.store');
+        Route::post('package/update/{id}', 'packageUpdate')->name('package.update');
+
+        //Advertise
+        Route::get('admin', 'adminAdds')->name('admin');
+        Route::get('user', 'userAdds')->name('user');
+        Route::post('admin/store', 'adminAddsStore')->name('admin.store');
+        Route::post('admin/update/{id}', 'addsUpdate')->name('update');
+    });
 
     // Users Manager
-    Route::controller('ManageUsersController')->name('users.')->prefix('users')->group(function(){
+    Route::controller('ManageUsersController')->name('users.')->prefix('users')->group(function () {
         Route::get('/', 'allUsers')->name('all');
         Route::get('active', 'activeUsers')->name('active');
         Route::get('banned', 'bannedUsers')->name('banned');
@@ -130,7 +137,7 @@ Route::middleware('admin')->group(function () {
     });
 
     // Subscriber
-    Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function(){
+    Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('send-email', 'sendEmailForm')->name('send.email');
         Route::post('remove/{id}', 'remove')->name('remove');
@@ -138,9 +145,9 @@ Route::middleware('admin')->group(function () {
     });
 
     // Deposit Gateway
-    Route::name('gateway.')->prefix('gateway')->group(function(){
+    Route::name('gateway.')->prefix('gateway')->group(function () {
         // Automatic Gateway
-        Route::controller('AutomaticGatewayController')->prefix('automatic')->name('automatic.')->group(function(){
+        Route::controller('AutomaticGatewayController')->prefix('automatic')->name('automatic.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('edit/{alias}', 'edit')->name('edit');
             Route::post('update/{code}', 'update')->name('update');
@@ -150,7 +157,7 @@ Route::middleware('admin')->group(function () {
 
 
         // Manual Methods
-        Route::controller('ManualGatewayController')->prefix('manual')->name('manual.')->group(function(){
+        Route::controller('ManualGatewayController')->prefix('manual')->name('manual.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('new', 'create')->name('create');
             Route::post('new', 'store')->name('store');
@@ -161,7 +168,7 @@ Route::middleware('admin')->group(function () {
     });
 
     // DEPOSIT SYSTEM
-    Route::controller('DepositController')->prefix('deposit')->name('deposit.')->group(function(){
+    Route::controller('DepositController')->prefix('deposit')->name('deposit.')->group(function () {
         Route::get('all/{user_id?}', 'deposit')->name('list');
         Route::get('pending/{user_id?}', 'pending')->name('pending');
         Route::get('rejected/{user_id?}', 'rejected')->name('rejected');
@@ -175,9 +182,9 @@ Route::middleware('admin')->group(function () {
     });
 
     // WITHDRAW SYSTEM
-    Route::name('withdraw.')->prefix('withdraw')->group(function(){
+    Route::name('withdraw.')->prefix('withdraw')->group(function () {
 
-        Route::controller('WithdrawalController')->name('data.')->group(function(){
+        Route::controller('WithdrawalController')->name('data.')->group(function () {
             Route::get('pending/{user_id?}', 'pending')->name('pending');
             Route::get('approved/{user_id?}', 'approved')->name('approved');
             Route::get('rejected/{user_id?}', 'rejected')->name('rejected');
@@ -189,7 +196,7 @@ Route::middleware('admin')->group(function () {
 
 
         // Withdraw Method
-        Route::controller('WithdrawMethodController')->prefix('method')->name('method.')->group(function(){
+        Route::controller('WithdrawMethodController')->prefix('method')->name('method.')->group(function () {
             Route::get('/', 'methods')->name('index');
             Route::get('create', 'create')->name('create');
             Route::post('create', 'store')->name('store');
@@ -200,7 +207,7 @@ Route::middleware('admin')->group(function () {
     });
 
     // Report
-    Route::controller('ReportController')->prefix('report')->name('report.')->group(function(){
+    Route::controller('ReportController')->prefix('report')->name('report.')->group(function () {
         Route::get('transaction/{user_id?}', 'transaction')->name('transaction');
         Route::get('login/history', 'loginHistory')->name('login.history');
         Route::get('login/ipHistory/{ip}', 'loginIpHistory')->name('login.ipHistory');
@@ -209,7 +216,7 @@ Route::middleware('admin')->group(function () {
     });
 
     // Admin Support
-    Route::controller('SupportTicketController')->prefix('ticket')->name('ticket.')->group(function(){
+    Route::controller('SupportTicketController')->prefix('ticket')->name('ticket.')->group(function () {
         Route::get('/', 'tickets')->name('index');
         Route::get('pending', 'pendingTicket')->name('pending');
         Route::get('closed', 'closedTicket')->name('closed');
@@ -222,7 +229,7 @@ Route::middleware('admin')->group(function () {
     });
 
     // Language Manager
-    Route::controller('LanguageController')->prefix('language')->name('language.')->group(function(){
+    Route::controller('LanguageController')->prefix('language')->name('language.')->group(function () {
         Route::get('/', 'langManage')->name('manage');
         Route::post('/', 'langStore')->name('manage.store');
         Route::post('delete/{id}', 'langDelete')->name('manage.delete');
@@ -236,7 +243,7 @@ Route::middleware('admin')->group(function () {
     });
 
 
-    Route::controller('GeneralSettingController')->group(function(){
+    Route::controller('GeneralSettingController')->group(function () {
 
         Route::get('system-setting', 'systemSetting')->name('setting.system');
 
@@ -249,35 +256,35 @@ Route::middleware('admin')->group(function () {
         Route::post('setting/social/credentials/status/{key}', 'updateSocialiteCredentialStatus')->name('setting.socialite.credentials.status.update');
 
         //configuration
-        Route::get('setting/system-configuration','systemConfiguration')->name('setting.system.configuration');
-        Route::post('setting/system-configuration','systemConfigurationSubmit');
+        Route::get('setting/system-configuration', 'systemConfiguration')->name('setting.system.configuration');
+        Route::post('setting/system-configuration', 'systemConfigurationSubmit');
 
         // Logo-Icon
         Route::get('setting/logo-icon', 'logoIcon')->name('setting.logo.icon');
         Route::post('setting/logo-icon', 'logoIconUpdate')->name('setting.logo.icon');
 
         //Custom CSS
-        Route::get('custom-css','customCss')->name('setting.custom.css');
-        Route::post('custom-css','customCssSubmit');
+        Route::get('custom-css', 'customCss')->name('setting.custom.css');
+        Route::post('custom-css', 'customCssSubmit');
 
-        Route::get('sitemap','sitemap')->name('setting.sitemap');
-        Route::post('sitemap','sitemapSubmit');
+        Route::get('sitemap', 'sitemap')->name('setting.sitemap');
+        Route::post('sitemap', 'sitemapSubmit');
 
-        Route::get('robot','robot')->name('setting.robot');
-        Route::post('robot','robotSubmit');
+        Route::get('robot', 'robot')->name('setting.robot');
+        Route::post('robot', 'robotSubmit');
 
         //Cookie
-        Route::get('cookie','cookie')->name('setting.cookie');
-        Route::post('cookie','cookieSubmit');
+        Route::get('cookie', 'cookie')->name('setting.cookie');
+        Route::post('cookie', 'cookieSubmit');
 
         //maintenance_mode
-        Route::get('maintenance-mode','maintenanceMode')->name('maintenance.mode');
-        Route::post('maintenance-mode','maintenanceModeSubmit');
+        Route::get('maintenance-mode', 'maintenanceMode')->name('maintenance.mode');
+        Route::post('maintenance-mode', 'maintenanceModeSubmit');
 
         //In app purchase
-        Route::get('in-app-purchase','inAppPurchase')->name('setting.app.purchase');
-        Route::post('in-app-purchase','inAppPurchaseConfigure');
-        Route::get('in-app-purchase/file/download','inAppPurchaseFileDownload')->name('setting.app.purchase.file.download');
+        Route::get('in-app-purchase', 'inAppPurchase')->name('setting.app.purchase');
+        Route::post('in-app-purchase', 'inAppPurchaseConfigure');
+        Route::get('in-app-purchase/file/download', 'inAppPurchaseFileDownload')->name('setting.app.purchase.file.download');
 
     });
 
@@ -297,36 +304,36 @@ Route::middleware('admin')->group(function () {
     });
 
     //KYC setting
-    Route::controller('KycController')->group(function(){
-        Route::get('kyc-setting','setting')->name('kyc.setting');
-        Route::post('kyc-setting','settingUpdate');
+    Route::controller('KycController')->group(function () {
+        Route::get('kyc-setting', 'setting')->name('kyc.setting');
+        Route::post('kyc-setting', 'settingUpdate');
     });
 
     //Notification Setting
-    Route::name('setting.notification.')->controller('NotificationController')->prefix('notification')->group(function(){
+    Route::name('setting.notification.')->controller('NotificationController')->prefix('notification')->group(function () {
         //Template Setting
-        Route::get('global/email','globalEmail')->name('global.email');
-        Route::post('global/email/update','globalEmailUpdate')->name('global.email.update');
+        Route::get('global/email', 'globalEmail')->name('global.email');
+        Route::post('global/email/update', 'globalEmailUpdate')->name('global.email.update');
 
-        Route::get('global/sms','globalSms')->name('global.sms');
-        Route::post('global/sms/update','globalSmsUpdate')->name('global.sms.update');
+        Route::get('global/sms', 'globalSms')->name('global.sms');
+        Route::post('global/sms/update', 'globalSmsUpdate')->name('global.sms.update');
 
-        Route::get('global/push','globalPush')->name('global.push');
-        Route::post('global/push/update','globalPushUpdate')->name('global.push.update');
+        Route::get('global/push', 'globalPush')->name('global.push');
+        Route::post('global/push/update', 'globalPushUpdate')->name('global.push.update');
 
-        Route::get('templates','templates')->name('templates');
-        Route::get('template/edit/{type}/{id}','templateEdit')->name('template.edit');
-        Route::post('template/update/{type}/{id}','templateUpdate')->name('template.update');
+        Route::get('templates', 'templates')->name('templates');
+        Route::get('template/edit/{type}/{id}', 'templateEdit')->name('template.edit');
+        Route::post('template/update/{type}/{id}', 'templateUpdate')->name('template.update');
 
         //Email Setting
-        Route::get('email/setting','emailSetting')->name('email');
-        Route::post('email/setting','emailSettingUpdate');
-        Route::post('email/test','emailTest')->name('email.test');
+        Route::get('email/setting', 'emailSetting')->name('email');
+        Route::post('email/setting', 'emailSettingUpdate');
+        Route::post('email/test', 'emailTest')->name('email.test');
 
         //SMS Setting
-        Route::get('sms/setting','smsSetting')->name('sms');
-        Route::post('sms/setting','smsSettingUpdate');
-        Route::post('sms/test','smsTest')->name('sms.test');
+        Route::get('sms/setting', 'smsSetting')->name('sms');
+        Route::post('sms/setting', 'smsSettingUpdate');
+        Route::post('sms/test', 'smsTest')->name('sms.test');
 
         Route::get('notification/push/setting', 'pushSetting')->name('push');
         Route::post('notification/push/setting', 'pushSettingUpdate');
@@ -335,21 +342,21 @@ Route::middleware('admin')->group(function () {
     });
 
     // Plugin
-    Route::controller('ExtensionController')->prefix('extensions')->name('extensions.')->group(function(){
+    Route::controller('ExtensionController')->prefix('extensions')->name('extensions.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('update/{id}', 'update')->name('update');
         Route::post('status/{id}', 'status')->name('status');
     });
 
     //System Information
-    Route::controller('SystemController')->name('system.')->prefix('system')->group(function(){
-        Route::get('info','systemInfo')->name('info');
-        Route::get('server-info','systemServerInfo')->name('server.info');
+    Route::controller('SystemController')->name('system.')->prefix('system')->group(function () {
+        Route::get('info', 'systemInfo')->name('info');
+        Route::get('server-info', 'systemServerInfo')->name('server.info');
         Route::get('optimize', 'optimize')->name('optimize');
         Route::get('optimize-clear', 'optimizeClear')->name('optimize.clear');
-        Route::get('system-update','systemUpdate')->name('update');
-        Route::post('system-update','systemUpdateProcess')->name('update.process');
-        Route::get('system-update/log','systemUpdateLog')->name('update.log');
+        Route::get('system-update', 'systemUpdate')->name('update');
+        Route::post('system-update', 'systemUpdateProcess')->name('update.process');
+        Route::get('system-update/log', 'systemUpdateLog')->name('update.log');
     });
 
     // SEO
@@ -358,7 +365,7 @@ Route::middleware('admin')->group(function () {
     // Frontend
     Route::name('frontend.')->prefix('frontend')->group(function () {
 
-        Route::controller('FrontendController')->group(function(){
+        Route::controller('FrontendController')->group(function () {
             Route::get('index', 'index')->name('index');
             Route::get('templates', 'templates')->name('templates');
             Route::post('templates', 'templatesActive')->name('templates.active');
@@ -372,7 +379,7 @@ Route::middleware('admin')->group(function () {
         });
 
         // Page Builder
-        Route::controller('PageBuilderController')->group(function(){
+        Route::controller('PageBuilderController')->group(function () {
             Route::get('manage-pages', 'managePages')->name('manage.pages');
             Route::get('manage-pages/check-slug/{id?}', 'checkSlug')->name('manage.pages.check.slug');
             Route::post('manage-pages', 'managePagesSave')->name('manage.pages.save');
@@ -381,8 +388,8 @@ Route::middleware('admin')->group(function () {
             Route::get('manage-section/{id}', 'manageSection')->name('manage.section');
             Route::post('manage-section/{id}', 'manageSectionUpdate')->name('manage.section.update');
 
-            Route::get('manage-seo/{id}','manageSeo')->name('manage.pages.seo');
-            Route::post('manage-seo/{id}','manageSeoStore');
+            Route::get('manage-seo/{id}', 'manageSeo')->name('manage.pages.seo');
+            Route::post('manage-seo/{id}', 'manageSeoStore');
         });
 
     });
