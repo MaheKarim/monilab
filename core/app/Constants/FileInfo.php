@@ -79,6 +79,10 @@ class FileInfo
         $data['pushConfig'] = [
             'path'      => 'assets/admin',
         ];
+        $data['paymentAccept'] = [
+            'path' => 'assets/images/payment_accept',
+            'size' => '36x36'
+        ];
         return $data;
 	}
 

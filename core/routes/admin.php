@@ -53,8 +53,8 @@ Route::middleware('admin')->group(function () {
     Route::controller('HyipAddonController')->name('hyip.addon.')->prefix('hyip/addon')->group(function () {
         //Hyip Addon -- Payment Accept
         Route::get('payment-accept', 'paymentAcceptAll')->name('payment.accept');
-        Route::post('payment-accept/store', 'paymentAcceptStore')->name('payment.accept.store');
-        Route::post('payment-accept/update/{id}', 'paymentAcceptUpdate')->name('payment.accept.update');
+        Route::post('payment-accept/store/{id?}', 'paymentAcceptStore')->name('payment.accept.store');
+        Route::post('payment-accept/status/{id}', 'status')->name('payment.accept.status');
 
         //Hyip Addon -- Feature
         Route::get('feature', 'featureAll')->name('feature');

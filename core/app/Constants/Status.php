@@ -7,6 +7,9 @@ class Status{
     const ENABLE = 1;
     const DISABLE = 0;
 
+    const ACTIVE = 1;
+    const DEACTIVE = 0;
+
     const YES = 1;
     const NO = 0;
 

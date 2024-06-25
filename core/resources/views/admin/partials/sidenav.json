@@ -26,6 +26,17 @@
         "route_name": "admin.dashboard",
         "menu_active": "admin.dashboard"
     },
+    "hyip_addon": {
+        "title": "Hyip Addon",
+        "icon": "las la-shopping-bag",
+        "menu_active": "admin.hyip.addon*",
+        "submenu": [{
+            "keyword": ["Hyip Addon", "Payment Accept", "Hyip Addon Payment"],
+            "title": "Payment Accept",
+            "route_name": "admin.hyip.addon.payment.accept",
+            "menu_active": "admin.hyip.addon.payment.accept"
+        }]
+    },
     "manage_users": {
         "title": "Manage Users",
         "icon": "las la-users",

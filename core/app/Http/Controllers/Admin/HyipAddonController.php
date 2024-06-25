@@ -16,78 +16,55 @@ class HyipAddonController extends Controller
     public function paymentAcceptAll()
     {
         $pageTitle = 'Payment Accept Method';
-        $empty_message = 'No payment accept found';
         $payment_accepts = PaymentAccept::latest()->paginate(getPaginate());
-        return view('admin.hyipAddon.paymentAccept',compact('pageTitle','payment_accepts','empty_message'));
+
+        return view('admin.hyipAddon.payment-accept',compact('pageTitle','payment_accepts'));
     }
 
-    public function paymentAcceptStore(Request $request)
+    public function paymentAcceptStore(Request $request, $id=0)
     {
-        $request->validate([
-            'image' => ['required', new FileTypeValidate(['jpeg', 'jpg', 'png'])],
+        $isUpdate = $id != 0;
+
+        $rules = [
             'name' => 'required|string|max:190'
-        ]);
+        ];
 
-        $payment_accept_image = '';
+        if (!$isUpdate) {
+            $rules['image'] = ['required', new FileTypeValidate(['jpeg', 'jpg', 'png'])];
+        } else {
+            $rules['image'] = ['nullable', new FileTypeValidate(['jpeg', 'jpg', 'png'])];
+        }
+
+        $request->validate($rules);
+
+        if ($isUpdate) {
+            $paymentAccept = PaymentAccept::findOrFail($id);
+        } else {
+            $paymentAccept = new PaymentAccept();
+        }
+
+        $payment_accept_image = $paymentAccept->image;
+
         if($request->hasFile('image')) {
-            try{
-                // payment_accept
-                $location = imagePath()['payment_accept']['path'];
-                $size = imagePath()['payment_accept']['size'];
+            try {
+                // TODO:: Image Upload
+                $payment_accept_image = fileUploader($request->image, getFilePath('paymentAccept'), getFileSize('paymentAccept'));
 
-                $payment_accept_image = fileUploader($request->image, $location , $size);
-
-            }catch(\Exception $exp) {
+                // If updating, delete the old image
+                if ($isUpdate && $paymentAccept->image) {
+                    fileManager()->removeFile(getFilePath('paymentAccept') . '/' . $paymentAccept->image);
+                }
+            } catch(\Exception $exp) {
                 return back()->withNotify(['error', 'Could not upload the image.']);
             }
         }
 
-//        PaymentAccept::create([
-//            'image' => $payment_accept_image,
-//            'name' => $request->name,
-//            'status' => $request->status,
-//        ]);
-
-        $paymentAccept = new PaymentAccept();
-        $paymentAccept->image = $payment_accept_image;
         $paymentAccept->name = $request->name;
-        $paymentAccept->status = $request->status;
+        $paymentAccept->image = $payment_accept_image;
+        $paymentAccept->status = isset($request->status) ? 1 : 0;
         $paymentAccept->save();
 
-        $notify[] = ['success', 'Payment accept details has been added'];
-        return back()->withNotify($notify);
-    }
-
-    public function paymentAcceptUpdate(Request $request,$id){
-
-        $request->validate([
-            'image' => [new FileTypeValidate(['jpeg', 'jpg', 'png'])],
-            'name' => 'required|string|max:190'
-        ]);
-
-        $payment_accept = PaymentAccept::findOrFail($id);
-
-        $payment_accept_image = $payment_accept->image;
-        if($request->hasFile('image')) {
-            try{
-
-                $location = imagePath()['payment_accept']['path'];
-                $size = imagePath()['payment_accept']['size'];
-                $old = $payment_accept->image;
-                $payment_accept_image = fileUploader($request->image, $location , $size, $old);
-
-            }catch(\Exception $exp) {
-                return back()->withNotify(['error', 'Could not upload the image.']);
-            }
-        }
-
-        $payment_accept->update([
-            'image' => $payment_accept_image,
-            'name' => $request->name,
-            'status' => $request->status,
-        ]);
-
-        $notify[] = ['success', 'Payment accept details has been Updated'];
+        $notify[] = ['success', $isUpdate ? 'Payment accept details have been updated' : 'Payment accept details have been added'];
         return back()->withNotify($notify);
     }
 
@@ -245,5 +222,11 @@ class HyipAddonController extends Controller
         $notify[] = ['success', 'Poll has been Updated'];
         return back()->withNotify($notify);
     }
+
+    public function status($id)
+    {
+        return PaymentAccept::changeStatus($id);
+    }
+
 
 }
