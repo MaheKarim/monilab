@@ -74,19 +74,31 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('transactions','transactions')->name('transactions');
 
                 Route::post('add-device-token','addDeviceToken')->name('add.device.token');
+
+                // Advertise
+                Route::get('/advertise', 'advertise')->name('advertise.index');
+                Route::get('advertise/new/{id}', 'advertiseNew')->name('advertise.new');
+                Route::post('advertise/store/{id}', 'advertiseStore')->name('advertise.store');
+
+                // HyIP
+                Route::get('hyip/all', 'hyipIndex')->name('hyip.index');
+                Route::get('hyip/new', 'hyipNew')->name('hyip.new');
+                Route::post('hyip/store', 'hyipStore')->name('hyip.store');
+                Route::get('hyip/edit/{id}', 'hyipEdit')->name('hyip.edit');
+                Route::post('hyip/update/{id}', 'hyipUpdate')->name('hyip.update');
+                Route::get('hyip/update/pending', 'hyipUpdatePending')->name('hyip.update.pending');
             });
 
-            //Profile setting
-            Route::controller('ProfileController')->group(function(){
+        // Profile setting
+        Route::controller('ProfileController')->group(function(){
                 Route::get('profile-setting', 'profile')->name('profile.setting');
                 Route::post('profile-setting', 'submitProfile');
                 Route::get('change-password', 'changePassword')->name('change.password');
                 Route::post('change-password', 'submitPassword');
             });
 
-
-            // Withdraw
-            Route::controller('WithdrawController')->prefix('withdraw')->name('withdraw')->group(function(){
+       // Withdraw
+        Route::controller('WithdrawController')->prefix('withdraw')->name('withdraw')->group(function(){
                 Route::middleware('kyc')->group(function(){
                     Route::get('/', 'withdrawMoney');
                     Route::post('/', 'withdrawStore')->name('.money');

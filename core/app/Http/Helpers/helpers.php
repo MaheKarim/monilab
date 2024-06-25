@@ -47,7 +47,6 @@ function getNumber($length = 8)
     return $randomString;
 }
 
-
 function activeTemplate($asset = false) {
     $template = session('template') ?? gs('active_template');
     if ($asset) return 'assets/templates/' . $template . '/';
@@ -63,6 +62,7 @@ function siteLogo($type = null) {
     $name = $type ? "/logo_$type.png" : '/logo.png';
     return getImage(getFilePath('logo_icon') . $name);
 }
+
 function siteFavicon() {
     return getImage(getFilePath('logo_icon'). '/favicon.png');
 }
@@ -132,7 +132,6 @@ function showAmount($amount, $decimal = 2, $separate = true, $exceptZeros = fals
     return $printAmount;
 }
 
-
 function removeElement($array, $value)
 {
     return array_diff($array, (is_array($value) ? $value : array($value)));
@@ -148,18 +147,15 @@ function keyToTitle($text)
     return ucfirst(preg_replace("/[^A-Za-z0-9 ]/", ' ', $text));
 }
 
-
 function titleToKey($text)
 {
     return strtolower(str_replace(' ', '_', $text));
 }
 
-
 function strLimit($title = null, $length = 10)
 {
     return Str::limit($title, $length);
 }
-
 
 function getIpInfo()
 {
@@ -167,13 +163,11 @@ function getIpInfo()
     return $ipInfo;
 }
 
-
 function osBrowser()
 {
     $osBrowser = ClientInfo::osBrowser();
     return $osBrowser;
 }
-
 
 function getTemplates()
 {
@@ -188,7 +182,6 @@ function getTemplates()
     }
 }
 
-
 function getPageSections($arr = false)
 {
     $jsonUrl = resource_path('views/') . str_replace('.', '/', activeTemplate()) . 'sections.json';
@@ -199,7 +192,6 @@ function getPageSections($arr = false)
     }
     return $sections;
 }
-
 
 function getImage($image, $size = null)
 {
@@ -212,7 +204,6 @@ function getImage($image, $size = null)
     }
     return asset('assets/images/default.png');
 }
-
 
 function notify($user, $templateName, $shortCodes = null, $sendVia = null, $createLog = true,$pushImage = null)
 {
@@ -251,7 +242,6 @@ function paginateLinks($data)
     return $data->appends(request()->all())->links();
 }
 
-
 function menuActive($routeName, $type = null, $param = null)
 {
     if ($type == 3) $class = 'side-menu--open';
@@ -271,7 +261,6 @@ function menuActive($routeName, $type = null, $param = null)
         return $class;
     }
 }
-
 
 function fileUploader($file, $location, $size = null, $old = null, $thumb = null,$filename = null)
 {
@@ -312,7 +301,6 @@ function diffForHumans($date)
     return Carbon::parse($date)->diffForHumans();
 }
 
-
 function showDateTime($date, $format = 'Y-m-d h:i A')
 {
     if (!$date) {
@@ -322,7 +310,6 @@ function showDateTime($date, $format = 'Y-m-d h:i A')
     Carbon::setlocale($lang);
     return Carbon::parse($date)->translatedFormat($format);
 }
-
 
 function getContent($dataKeys, $singleQuery = false, $limit = null, $orderById = false) {
 
@@ -360,7 +347,6 @@ function verifyG2fa($user, $code, $secret = null)
     }
 }
 
-
 function urlPath($routeName, $routeParam = null)
 {
     if ($routeParam == null) {
@@ -373,7 +359,6 @@ function urlPath($routeName, $routeParam = null)
     return $path;
 }
 
-
 function showMobileNumber($number)
 {
     $length = strlen($number);
@@ -385,7 +370,6 @@ function showEmailAddress($email)
     $endPosition = strpos($email, '@') - 1;
     return substr_replace($email, '***', 1, $endPosition);
 }
-
 
 function getRealIP()
 {
@@ -416,7 +400,6 @@ function getRealIP()
     return $ip;
 }
 
-
 function appendQuery($key, $value)
 {
     return request()->fullUrlWithQuery([$key => $value]);
@@ -443,6 +426,7 @@ function gs($key = null)
     if ($key) return @$general->$key;
     return $general;
 }
+
 function isImage($string){
     $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
     $fileExtension = pathinfo($string, PATHINFO_EXTENSION);
@@ -461,7 +445,6 @@ function isHtml($string)
         return false;
     }
 }
-
 
 function convertToReadableSize($size) {
     preg_match('/^(\d+)([KMG])$/', $size, $matches);
@@ -482,7 +465,6 @@ function convertToReadableSize($size) {
 
     return $size.$unit;
 }
-
 
 function frontendImage($sectionName, $image, $size = null,$seo = false)
 {

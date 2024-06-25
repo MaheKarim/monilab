@@ -6,7 +6,15 @@ use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Lib\CurlRequest;
 use App\Models\AdminNotification;
+use App\Models\Advertise;
+use App\Models\AdvertisePackage;
 use App\Models\Deposit;
+use App\Models\Feature;
+use App\Models\Hyip;
+use App\Models\PaymentAccept;
+use App\Models\TempHyip;
+use App\Models\TempHyipFeatures;
+use App\Models\TempHyipPaymentAccept;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserLogin;
@@ -14,11 +22,11 @@ use App\Models\Withdrawal;
 use App\Rules\FileTypeValidate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-
     public function dashboard()
     {
         $pageTitle = 'Dashboard';
@@ -56,9 +64,6 @@ class AdminController extends Controller
 
         return view('admin.dashboard', compact('pageTitle', 'widget', 'chart','deposit','withdrawals'));
     }
-
-
-
 
     public function depositAndWithdrawReport(Request $request) {
 
@@ -179,7 +184,6 @@ class AdminController extends Controller
         return response()->json($report);
     }
 
-
     private function getAllDates($startDate, $endDate) {
         $dates = [];
         $currentDate = new \DateTime($startDate);
@@ -210,7 +214,6 @@ class AdminController extends Controller
 
         return $months;
     }
-
 
     public function profile()
     {
@@ -277,7 +280,6 @@ class AdminController extends Controller
         $pageTitle = 'Notifications';
         return view('admin.notifications',compact('pageTitle','notifications','hasUnread','hasNotification'));
     }
-
 
     public function notificationRead($id){
         $notification = AdminNotification::findOrFail($id);
@@ -369,6 +371,5 @@ class AdminController extends Controller
         header("Content-Type: " . $mimetype);
         return readfile($filePath);
     }
-
 
 }

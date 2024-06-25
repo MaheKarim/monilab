@@ -58,6 +58,21 @@ class User extends Authenticatable
         return $this->hasMany(SupportTicket::class);
     }
 
+    public function adds()
+    {
+        return $this->hasMany(Advertise::class);
+    }
+
+    public function hyips()
+    {
+        return $this->hasMany(Hyip::class);
+    }
+
+    public function tempHyips()
+    {
+        return $this->hasMany(TempHyip::class);
+    }
+
     public function fullname(): Attribute
     {
         return new Attribute(

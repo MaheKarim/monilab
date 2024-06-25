@@ -50,6 +50,54 @@ Route::middleware('admin')->group(function () {
         Route::get('download-attachments/{file_hash}', 'downloadAttachment')->name('download.attachment');
     });
 
+    //Hyip Addon -- Payment Accept
+    Route::get('hyip/addon/payment-accept', 'HyipAddonController@paymentAcceptAll')->name('hyip.addon.payment.accept');
+    Route::post('hyip/addon/payment-accept/store', 'HyipAddonController@paymentAcceptStore')->name('hyip.addon.payment.accept.store');
+    Route::post('hyip/addon/payment-accept/update/{id}', 'HyipAddonController@paymentAcceptUpdate')->name('hyip.addon.payment.accept.update');
+
+    //Hyip Addon -- Feature
+    Route::get('hyip/addon/feature', 'HyipAddonController@featureAll')->name('hyip.addon.feature');
+    Route::post('hyip/addon/feature/store', 'HyipAddonController@featureStore')->name('hyip.addon.feature.store');
+    Route::post('hyip/addon/feature/update/{id}', 'HyipAddonController@featureUpdate')->name('hyip.addon.feature.update');
+
+    //Hyip Addon -- Type
+    Route::get('hyip/addon/type', 'HyipAddonController@typeAll')->name('hyip.addon.type');
+    Route::post('hyip/addon/type/store', 'HyipAddonController@typeStore')->name('hyip.addon.type.store');
+    Route::post('hyip/addon/type/update/{id}', 'HyipAddonController@typeUpdate')->name('hyip.addon.type.update');
+
+    //Hyip Addon -- Poll
+    Route::get('hyip/addon/poll', 'HyipAddonController@pollAll')->name('hyip.addon.poll');
+    Route::post('hyip/addon/poll/store', 'HyipAddonController@pollStore')->name('hyip.addon.poll.store');
+    Route::post('hyip/addon/poll/update/{id}', 'HyipAddonController@pollUpdate')->name('hyip.addon.poll.update');
+
+    //Hyip
+    Route::get('hyip/admin/list', 'HyipController@adminHyipList')->name('main.hyip.admin.list');
+    Route::get('hyip/user/list', 'HyipController@userHyipList')->name('main.hyip.user.list');
+    Route::get('hyip/new', 'HyipController@hyipNew')->name('main.hyip.new');
+    Route::post('hyip/store', 'HyipController@hyipStore')->name('main.hyip.store');
+    Route::get('hyip/edit/{id}', 'HyipController@hyipEdit')->name('main.hyip.edit');
+    Route::post('hyip/update/{id}', 'HyipController@hyipUpdate')->name('main.hyip.update');
+
+    //User Hyip Update Request List
+    Route::get('hyip/user/update/list', 'HyipController@userHyipUpdateRequestList')->name('main.hyip.user.update.list');
+    Route::get('hyip/user/update/{id}', 'HyipController@userHyipUpdateApprove')->name('main.hyip.user.update.approve');
+    Route::get('hyip/user/reject/{id}', 'HyipController@userHyipUpdateReject')->name('main.hyip.user.update.reject');
+
+
+    Route::get('hyip/report', 'HyipController@report')->name('main.hyip.report');
+
+    //Advertise Package
+    Route::get('advertise/package', 'AdvertiseController@packageAll')->name('advertise.package');
+    Route::post('advertise/package/store', 'AdvertiseController@packageStore')->name('advertise.package.store');
+    Route::post('advertise/package/update/{id}', 'AdvertiseController@packageUpdate')->name('advertise.package.update');
+
+    //Advertise
+    Route::get('advertise/admin', 'AdvertiseController@adminAdds')->name('advertise.admin');
+    Route::get('advertise/user', 'AdvertiseController@userAdds')->name('advertise.user');
+    Route::post('advertise/admin/store', 'AdvertiseController@adminAddsStore')->name('advertise.admin.store');
+    Route::post('advertise/admin/update/{id}', 'AdvertiseController@addsUpdate')->name('advertise.update');
+
+
     // Users Manager
     Route::controller('ManageUsersController')->name('users.')->prefix('users')->group(function(){
         Route::get('/', 'allUsers')->name('all');
@@ -112,7 +160,6 @@ Route::middleware('admin')->group(function () {
         });
     });
 
-
     // DEPOSIT SYSTEM
     Route::controller('DepositController')->prefix('deposit')->name('deposit.')->group(function(){
         Route::get('all/{user_id?}', 'deposit')->name('list');
@@ -126,7 +173,6 @@ Route::middleware('admin')->group(function () {
         Route::post('approve/{id}', 'approve')->name('approve');
 
     });
-
 
     // WITHDRAW SYSTEM
     Route::name('withdraw.')->prefix('withdraw')->group(function(){
@@ -162,7 +208,6 @@ Route::middleware('admin')->group(function () {
         Route::get('email/detail/{id}', 'emailDetails')->name('email.details');
     });
 
-
     // Admin Support
     Route::controller('SupportTicketController')->prefix('ticket')->name('ticket.')->group(function(){
         Route::get('/', 'tickets')->name('index');
@@ -175,7 +220,6 @@ Route::middleware('admin')->group(function () {
         Route::get('download/{attachment_id}', 'ticketDownload')->name('download');
         Route::post('delete/{id}', 'ticketDelete')->name('delete');
     });
-
 
     // Language Manager
     Route::controller('LanguageController')->prefix('language')->name('language.')->group(function(){
@@ -190,6 +234,7 @@ Route::middleware('admin')->group(function () {
         Route::post('update/key/{id}', 'updateLanguageJson')->name('update.key');
         Route::get('get-keys', 'getKeys')->name('get.key');
     });
+
 
     Route::controller('GeneralSettingController')->group(function(){
 
@@ -251,7 +296,6 @@ Route::middleware('admin')->group(function () {
         Route::post('schedule/log/flush/{id}', 'logFlush')->name('log.flush');
     });
 
-
     //KYC setting
     Route::controller('KycController')->group(function(){
         Route::get('kyc-setting','setting')->name('kyc.setting');
@@ -297,7 +341,6 @@ Route::middleware('admin')->group(function () {
         Route::post('status/{id}', 'status')->name('status');
     });
 
-
     //System Information
     Route::controller('SystemController')->name('system.')->prefix('system')->group(function(){
         Route::get('info','systemInfo')->name('info');
@@ -309,10 +352,8 @@ Route::middleware('admin')->group(function () {
         Route::get('system-update/log','systemUpdateLog')->name('update.log');
     });
 
-
     // SEO
     Route::get('seo', 'FrontendController@seoEdit')->name('seo');
-
 
     // Frontend
     Route::name('frontend.')->prefix('frontend')->group(function () {
