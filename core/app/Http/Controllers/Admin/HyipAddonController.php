@@ -130,84 +130,55 @@ class HyipAddonController extends Controller
         return view('admin.hyipAddon.type', compact('pageTitle', 'types', 'empty_message'));
     }
 
-    public function typeStore(Request $request)
+    public function typeStore(Request $request, $id=0)
     {
         $request->validate([
             'name' => 'required|string|max:190'
         ]);
 
-//        Type::create([
-//            'name' => $request->name,
-//            'status' => $request->status
-//        ]);
-        $type = new Type();
+        if (!$id) {
+            $type = new Type();
+            $message = 'Type details has been added';
+        } else {
+            $type = Type::findOrFail($id);
+            $message = 'Type details has been updated';
+        }
         $type->name = $request->name;
-        $type->status = $request->status;
+        $type->status = isset($request->status) ? Status::ENABLE : Status::DISABLE;
         $type->save();
 
-        $notify[] = ['success', 'Type details has been added'];
+        $notify[] = ['success', $message];
         return back()->withNotify($notify);
     }
-
-    public function typeUpdate(Request $request, $id)
-    {
-
-        $request->validate([
-            'name' => 'required|string|max:190'
-        ]);
-
-        $type = Type::findOrFail($id);
-
-//        $type->update([
-//            'name' => $request->name,
-//            'status' => $request->status,
-//        ]);
-        $type->name = $request->name;
-        $type->status = $request->status;
-        $type->save();
-
-
-        $notify[] = ['success', 'Type details has been Updated'];
-        return back()->withNotify($notify);
-    }
-
 
     public function pollAll()
     {
         $pageTitle = 'Poll For User Vote';
         $empty_message = 'No data found';
-        $polls = Poll::get();
+        $polls = Poll::latest()->paginate(getPaginate());
         return view('admin.hyipAddon.poll', compact('pageTitle', 'polls', 'empty_message'));
     }
 
-    public function pollStore(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:40'
-        ]);
 
-        $poll = new Poll();
-        $poll->name = $request->name;
-        $poll->save();
-
-
-        $notify[] = ['success', 'Poll has been added'];
-        return back()->withNotify($notify);
-    }
-
-    public function pollUpdate(Request $request, $id)
+    public function pollStore(Request $request, $id=0)
     {
 
         $request->validate([
             'name' => 'required|string|max:40'
         ]);
 
-        $poll = Poll::findOrFail($id);
+        if (!$id) {
+            $poll = new Poll();
+            $message = 'Poll has been added';
+        } else {
+            $poll = Poll::findOrFail($id);
+            $message = 'Poll has been updated';
+        }
         $poll->name = $request->name;
-        $poll->status = $request->status ? Status::ENABLE : Status::DISABLE;
+        $poll->status = isset($request->status) ? Status::ENABLE : Status::DISABLE;
         $poll->save();
 
-        $notify[] = ['success', 'Poll has been Updated'];
+        $notify[] = ['success', $message];
         return back()->withNotify($notify);
     }
 
@@ -219,6 +190,16 @@ class HyipAddonController extends Controller
     public function featureStatus($id)
     {
         return Feature::changeStatus($id);
+    }
+
+    public function typeStatus($id)
+    {
+        return Type::changeStatus($id);
+    }
+
+    public function pollStatus($id)
+    {
+        return Poll::changeStatus($id);
     }
 
 

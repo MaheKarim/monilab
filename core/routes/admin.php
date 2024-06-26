@@ -63,13 +63,13 @@ Route::middleware('admin')->group(function () {
 
         //Hyip Addon -- Type
         Route::get('type', 'typeAll')->name('type');
-        Route::post('type/store', 'typeStore')->name('type.store');
-        Route::post('type/update/{id}', 'typeUpdate')->name('type.update');
+        Route::post('type/store/{id?}', 'typeStore')->name('type.store');
+        Route::post('type/status/{id}', 'typeStatus')->name('type.status');
 
         //Hyip Addon -- Poll
         Route::get('poll', 'pollAll')->name('poll');
-        Route::post('poll/store', 'pollStore')->name('poll.store');
-        Route::post('poll/update/{id}', 'pollUpdate')->name('poll.update');
+        Route::post('poll/store/{id?}', 'pollStore')->name('poll.store');
+        Route::post('poll/status/{id}', 'pollStatus')->name('poll.status');
     });
 
 

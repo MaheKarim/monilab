@@ -40,6 +40,16 @@
             "title": "Features",
             "route_name": "admin.hyip.addon.feature",
             "menu_active": "admin.hyip.addon.feature"
+        },{
+            "keyword": ["Hyip Type", "Type Addon", "Hyip Addon Type"],
+            "title": "Hyip Type",
+            "route_name": "admin.hyip.addon.type",
+            "menu_active": "admin.hyip.addon.type"
+        },{
+            "keyword": ["Hyip Poll", "Poll Addon", "Poll"],
+            "title": "Poll",
+            "route_name": "admin.hyip.addon.poll",
+            "menu_active": "admin.hyip.addon.poll"
         }]
     },
     "manage_users": {
