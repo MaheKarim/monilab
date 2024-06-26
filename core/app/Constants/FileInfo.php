@@ -83,6 +83,10 @@ class FileInfo
             'path' => 'assets/images/payment_accept',
             'size' => '36x36'
         ];
+        $data['feature'] = [
+            'path' => 'assets/images/feature',
+            'size' => '36x36'
+        ];
         return $data;
 	}
 

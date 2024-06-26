@@ -58,8 +58,8 @@ Route::middleware('admin')->group(function () {
 
         //Hyip Addon -- Feature
         Route::get('feature', 'featureAll')->name('feature');
-        Route::post('feature/store', 'featureStore')->name('feature.store');
-        Route::post('feature/update/{id}', 'featureUpdate')->name('feature.update');
+        Route::post('feature/store/{id?}', 'featureStore')->name('feature.store');
+        Route::post('feature/status/{id}', 'featureStatus')->name('feature.status');
 
         //Hyip Addon -- Type
         Route::get('type', 'typeAll')->name('type');

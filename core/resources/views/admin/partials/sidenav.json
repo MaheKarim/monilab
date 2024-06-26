@@ -35,6 +35,11 @@
             "title": "Payment Accept",
             "route_name": "admin.hyip.addon.payment.accept",
             "menu_active": "admin.hyip.addon.payment.accept"
+        },{
+            "keyword": ["Hyip Feature", "Features Accept", "Hyip Addon Features"],
+            "title": "Features",
+            "route_name": "admin.hyip.addon.feature",
+            "menu_active": "admin.hyip.addon.feature"
         }]
     },
     "manage_users": {
