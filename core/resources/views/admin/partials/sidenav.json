@@ -78,6 +78,17 @@
             "menu_active": "admin.main.hyip.report"
         }]
     },
+    "advertisement": {
+        "title": "Advertisements",
+        "icon": "las la-ad",
+        "menu_active": "admin.advertise*",
+        "submenu": [{
+            "keyword": ["Advertisement", "Advertisement Package", "Advertisement Package"],
+            "title": "Package",
+            "route_name": "admin.advertise.package",
+            "menu_active": "admin.advertise.package"
+        }]
+    },
     "manage_users": {
         "title": "Manage Users",
         "icon": "las la-users",
