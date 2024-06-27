@@ -42,5 +42,9 @@ class Status{
     const CUR_BOTH = 1;
     const CUR_TEXT = 2;
     const CUR_SYM = 3;
+    const INACTIVE = 2;
+
+    const MANUAL = 1;
+    const AUTO = 2;
 
 }

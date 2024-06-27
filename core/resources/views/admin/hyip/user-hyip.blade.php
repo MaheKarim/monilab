@@ -10,9 +10,11 @@
                             <thead>
                             <tr>
                                 <th scope="col">@lang('SL')</th>
+                                <th scope="col">@lang('User')</th>
                                 <th scope="col">@lang('Image')</th>
                                 <th scope="col">@lang('Name')</th>
                                 <th scope="col">@lang('Status')</th>
+                                <th scope="col">@lang('Created At')</th>
                                 <th scope="col">@lang('Action')</th>
                             </tr>
                             </thead>
@@ -20,6 +22,9 @@
                             @forelse ($all_hyips as $hyip)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.users.detail', $hyip->user->id) }}">{{ $hyip->user->username }}</a>
+                                    </td>
                                     <td>
                                         <div class="customer-details d-block">
                                             <a class="thumb" href="javascript:void(0)">
@@ -31,6 +36,7 @@
                                     </td>
                                     <td>{{ __(Str::limit($hyip->name, 20)) }}</td>
                                     <td>@php echo $hyip->statusBadge @endphp</td>
+                                    <td>{{ showDateTime($hyip->created_at) }}</td>
                                     <td>
                                         <div class="button-group">
                                             <a href="{{ route('admin.main.hyip.edit',$hyip->id) }}" role="button"
@@ -70,19 +76,13 @@
             </div>
         </div>
     </div>
-
-    <x-confirmation-modal/>
 @endsection
 
-@push('breadcrumb-plugins')
-    <a href="{{ route('admin.main.hyip.new') }}" class="btn btn-sm btn-outline--primary float-sm-end"
-       type="button"> <i class="las la-plus"></i>@lang('Add new')
-    </a>
-@endpush
+
 @push('style')
     <style>
         .admin-edit-icon {
-            padding: 5px 8px;
+            padding: 5px 8px !important;
             display: inline-block;
         }
     </style>

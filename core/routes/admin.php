@@ -89,7 +89,7 @@ Route::middleware('admin')->group(function () {
         Route::get('user/reject/{id}', 'userHyipUpdateReject')->name('user.update.reject');
 
         // Hyip Report
-        Route::get('report', 'HyipController@report')->name('main.hyip.report');
+        Route::get('report', 'HyipController@report')->name('report');
     });
 
 

@@ -99,7 +99,7 @@ class HyipController extends Controller
         }
 
         $notify[] = ['success', 'Hyip details has been added'];
-        return to_route('admin.main.hyip.admin.list')->withNotify($notify[]);
+        return to_route('admin.main.hyip.admin.list')->withNotify($notify);
     }
 
     public function userHyipList(){
@@ -107,7 +107,6 @@ class HyipController extends Controller
         $all_hyips = Hyip::latest()->where('user_id', '!=', 0)->whereHas('user', function ($query) {
             $query->where('status', Status::ENABLE);
         })->latest()->paginate(getPaginate());
-        // TODO:: Hyip Id = 0 It Should Be User
         $empty_message = 'No hyip found';
 
         return view('admin.hyip.user-hyip',compact('all_hyips','empty_message','pageTitle'));
@@ -156,12 +155,7 @@ class HyipController extends Controller
 
         if($request->hasFile('image')) {
             try{
-                // TODO:: Image Upload
-                $location = imagePath()['hyip']['path'];
-                $size = imagePath()['hyip']['size'];
-                $old = $hyip->image;
-                $hyip_image = fileUploader($request->image, $location , $size, $old);
-
+                $hyip_image = fileUploader($request->image, getFilePath('hyip'), getFileSize('hyip'));
             }catch(\Exception $exp) {
                 return back()->withNotify(['error', 'Could not upload the image.']);
             }

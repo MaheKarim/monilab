@@ -61,6 +61,21 @@
             "title": "Admin Hyip",
             "route_name": "admin.main.hyip.admin.list",
             "menu_active": "admin.main.hyip.admin.list"
+        }, {
+            "keyword": ["Hyip", "User Hyip", "Hyip Addon"],
+            "title": "User Hyip",
+            "route_name": "admin.main.hyip.user.list",
+            "menu_active": "admin.main.hyip.user.list"
+        }, {
+            "keyword": ["Hyip Update", "Update Addon"],
+            "title": "User Hyip Update",
+            "route_name": "admin.main.hyip.user.update.list",
+            "menu_active": "admin.main.hyip.user.update.list"
+        }, {
+            "keyword": ["Hyip", "Hyip Addon", "Hyip Addon"],
+            "title": "Reported Hyip",
+            "route_name": "admin.main.hyip.report",
+            "menu_active": "admin.main.hyip.report"
         }]
     },
     "manage_users": {

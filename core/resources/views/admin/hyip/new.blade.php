@@ -148,7 +148,7 @@
                                     <div class="form-group">
                                         <label class="form-control-label font-weight-bold">@lang('Ref. Bonus')
                                             (%)</label>
-                                        <input type="text" class="form-control" name="ref_bonus"
+                                        <input type="number" step="any" class="form-control" name="ref_bonus"
                                                placeholder="@lang('Example') : 4.20"
                                                value="{{ old('ref_bonus') }}"
                                                required>
