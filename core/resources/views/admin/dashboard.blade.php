@@ -502,8 +502,6 @@
         </div>
     </div>
 
-
-
     @include('admin.partials.cron_modal')
 @endsection
 @push('breadcrumb-plugins')
