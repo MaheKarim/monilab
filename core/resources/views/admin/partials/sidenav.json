@@ -52,6 +52,17 @@
             "menu_active": "admin.hyip.addon.poll"
         }]
     },
+    "hyip": {
+        "title": "Hyip",
+        "icon": "lab la-bitcoin",
+        "menu_active": "admin.main.hyip*",
+        "submenu": [{
+            "keyword": ["Hyip", "Hyip Addon", "Hyip Addon"],
+            "title": "Admin Hyip",
+            "route_name": "admin.main.hyip.admin.list",
+            "menu_active": "admin.main.hyip.admin.list"
+        }]
+    },
     "manage_users": {
         "title": "Manage Users",
         "icon": "las la-users",

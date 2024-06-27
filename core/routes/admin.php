@@ -81,6 +81,7 @@ Route::middleware('admin')->group(function () {
         Route::post('store', 'hyipStore')->name('store');
         Route::get('edit/{id}', 'hyipEdit')->name('edit');
         Route::post('update/{id}', 'hyipUpdate')->name('update');
+        Route::post('status/{id}', 'hyipStatus')->name('status');
 
         //User Hyip Update Request List
         Route::get('user/update/list', 'userHyipUpdateRequestList')->name('user.update.list');

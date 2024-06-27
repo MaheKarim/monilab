@@ -29,30 +29,12 @@ class HyipController extends Controller
         return view('admin.hyip.admin-hyip',compact('all_hyips','empty_message','pageTitle'));
     }
 
-    public function userHyipList(){
-        $pageTitle = 'User Hyip';
-        $all_hyips = Hyip::latest()->where('user_id', '!=', 0)->whereHas('user', function ($query) {
-            $query->where('status', Status::ENABLE);
-        })->latest()->paginate(getPaginate());
-        // TODO:: Hyip Id = 0 It Should Be User
-        $empty_message = 'No hyip found';
-
-        return view('admin.hyip.user-hyip',compact('all_hyips','empty_message','pageTitle'));
-    }
-
     public function hyipNew(){
         $pageTitle = 'Add New Hyip';
         $payment_accepts = PaymentAccept::latest()->where('status', Status::ENABLE)->get();
         $types = Type::latest()->where('status', Status::ENABLE)->get();
         $features = Feature::latest()->where('status', Status::ENABLE)->get();
         return view('admin.hyip.new',compact('pageTitle','payment_accepts','types','features'));
-    }
-
-    public function report()
-    {
-        $pageTitle = 'Reported Hyips';
-        $reports = HyipReport::orderBy('id','desc')->with('hyip')->paginate(getPaginate());
-        return view('admin.hyip.reports',compact('pageTitle','reports'));
     }
 
     public function hyipStore(Request $request){
@@ -123,6 +105,24 @@ class HyipController extends Controller
 
         $notify[] = ['success', 'Hyip details has been added'];
         return back()->withNotify($notify);
+    }
+
+    public function userHyipList(){
+        $pageTitle = 'User Hyip';
+        $all_hyips = Hyip::latest()->where('user_id', '!=', 0)->whereHas('user', function ($query) {
+            $query->where('status', Status::ENABLE);
+        })->latest()->paginate(getPaginate());
+        // TODO:: Hyip Id = 0 It Should Be User
+        $empty_message = 'No hyip found';
+
+        return view('admin.hyip.user-hyip',compact('all_hyips','empty_message','pageTitle'));
+    }
+
+    public function report()
+    {
+        $pageTitle = 'Reported Hyips';
+        $reports = HyipReport::orderBy('id','desc')->with('hyip')->paginate(getPaginate());
+        return view('admin.hyip.reports',compact('pageTitle','reports'));
     }
 
     public function hyipEdit($id)
@@ -299,4 +299,6 @@ class HyipController extends Controller
         $notify[] = ['success', 'Hyip rejected successfully'];
         return back()->withNotify($notify);
     }
+
+
 }

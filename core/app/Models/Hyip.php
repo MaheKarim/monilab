@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\GlobalStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class Hyip extends Model
 {
+    use GlobalStatus;
+
     protected $guarded = ['id'];
 
     public function paymentAccepts()
@@ -22,6 +25,7 @@ class Hyip extends Model
     {
         return $this->belongsTo(Type::class);
     }
+
     public function feedbacks()
     {
         return $this->hasMany(Type::class);
@@ -31,6 +35,7 @@ class Hyip extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function userPolls()
     {
         return $this->hasMany(UserPoll::class);

@@ -87,6 +87,10 @@ class FileInfo
             'path' => 'assets/images/feature',
             'size' => '36x36'
         ];
+        $data['hyip'] = [
+            'path' => 'assets/images/hyip',
+            'size' => '125x125'
+        ];
         return $data;
 	}
 
