@@ -159,7 +159,6 @@ class HyipAddonController extends Controller
         return view('admin.hyipAddon.poll', compact('pageTitle', 'polls', 'empty_message'));
     }
 
-
     public function pollStore(Request $request, $id=0)
     {
 
@@ -201,6 +200,5 @@ class HyipAddonController extends Controller
     {
         return Poll::changeStatus($id);
     }
-
 
 }

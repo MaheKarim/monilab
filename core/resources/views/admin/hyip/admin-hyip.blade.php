@@ -19,8 +19,8 @@
                             <tbody class="list">
                             @forelse ($all_hyips as $hyip)
                                 <tr>
-                                    <td data-label="@lang('SL')">{{ $loop->index+1 }}</td>
-                                    <td data-label="@lang('Image')">
+                                    <td>{{ $loop->index+1 }}</td>
+                                    <td>
                                         <div class="customer-details d-block">
                                             <a class="thumb" href="javascript:void(0)">
                                                 <img
@@ -29,21 +29,23 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td data-label="@lang('Name')">{{ __(Str::limit($hyip->name, 20)) }}</td>
-                                    <td data-label="@lang('Status')">@php echo $hyip->statusBadge @endphp</td>
+                                    <td>{{ __(Str::limit($hyip->name, 20)) }}</td>
+                                    <td>@php echo $hyip->statusBadge @endphp</td>
                                     <td>
                                         <div class="button-group">
-                                            <td data-label="@lang('Action')"><a href="{{ route('admin.main.hyip.edit',$item->id) }}" class="icon-btn"><i class="la la-pencil-alt"></i></a></td>
+                                                <a href="{{ route('admin.main.hyip.edit',$hyip->id) }}" role="button" class="icon-btn admin-edit-icon">
+                                                    <i class="la la-pencil-alt"></i>
+                                                </a>
                                             @if ($hyip->status == Status::ACTIVE)
                                                 <button class="btn btn-sm btn-outline--danger ms-1 confirmationBtn"
                                                         data-question="@lang('Are you sure to disable this payment method?')"
-                                                        data-action="{{ route('admin.main.hyip.status',$hyip->id) }}">
+                                                        data-action="{{ route('admin.main.hyip.status', $hyip->id) }}">
                                                     <i class="la la-eye-slash"></i> @lang('Disable')
                                                 </button>
                                             @else
                                                 <button class="btn btn-sm btn-outline--success ms-1 confirmationBtn"
                                                         data-question="@lang('Are you sure to enable this payment method?')"
-                                                        data-action="{{ route('admin.main.hyip.status',$hyip->id) }}">
+                                                        data-action="{{ route('admin.main.hyip.status', $hyip->id) }}">
                                                     <i class="la la-eye"></i> @lang('Enable')
                                                 </button>
                                             @endif
@@ -76,6 +78,13 @@
             type="button"> <i class="las la-plus"></i>@lang('Add new')
     </a>
 @endpush
-
+@push('style')
+    <style>
+        .admin-edit-icon {
+          padding: 5px 8px;
+            display: inline-block;
+        }
+    </style>
+@endpush
 
 
