@@ -96,8 +96,8 @@ Route::middleware('admin')->group(function () {
     Route::controller('AdvertiseController')->name('advertise.')->prefix('advertise')->group(function () {
         //Advertise Package
         Route::get('package', 'packageAll')->name('package');
-        Route::post('package/store', 'packageStore')->name('package.store');
-        Route::post('package/update/{id}', 'packageUpdate')->name('package.update');
+        Route::post('package/store/{id?}', 'packageStore')->name('package.store');
+        Route::post('package/status/{id}', 'packageStatus')->name('package.status');
 
         //Advertise
         Route::get('admin', 'adminAdds')->name('admin');

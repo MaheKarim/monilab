@@ -19,8 +19,8 @@
                             <tbody class="list">
                             @forelse ($payment_accepts as $item)
                                 <tr>
-                                    <td data-label="@lang('SL')">{{ $loop->index+1 }}</td>
-                                    <td data-label="@lang('Image')">
+                                    <td>{{ $loop->index+1 }}</td>
+                                    <td>
                                         <div class="customer-details d-block">
                                             <a class="thumb" href="javascript:void(0)">
                                                 <img
@@ -29,8 +29,8 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td data-label="@lang('Name')">{{ __(Str::limit($item->name, 20)) }}</td>
-                                    <td data-label="@lang('Status')">@php echo $item->statusBadge @endphp</td>
+                                    <td>{{ __(Str::limit($item->name, 20)) }}</td>
+                                    <td>@php echo $item->statusBadge @endphp</td>
                                     <td>
                                         <div class="button-group">
                                             <button class="btn btn-outline--primary cuModalBtn btn-sm"

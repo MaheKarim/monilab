@@ -19,7 +19,7 @@ class AdvertiseController extends Controller
         return view('admin.advertisement.package',compact('pageTitle','packages'));
     }
 
-    public function packageStore(Request $request)
+    public function packageStore(Request $request, $id=0)
     {
         $request->validate([
             'name'=>'required|string|max:190',
@@ -28,38 +28,28 @@ class AdvertiseController extends Controller
             'day'=>'required|numeric',
         ]);
 
-        $advertisePackage           = new AdvertisePackage();
+        if ($request->id != 0) {
+            $advertisePackage = AdvertisePackage::findOrFail($request->id);
+            $message = 'Package has been updated';
+        } else {
+            $advertisePackage = new AdvertisePackage();
+            $message = 'Package has been added';
+        }
+
         $advertisePackage->name     = $request->name;
         $advertisePackage->add_size = $request->add_size;
         $advertisePackage->price    = $request->price;
         $advertisePackage->day      = $request->day;
-        $advertisePackage->status   = $request->status;
+        $advertisePackage->status   = isset($request->status) ? Status::ENABLE : Status::DISABLE;
         $advertisePackage->save();
 
-        $notify[] = ['success', 'Package has been added'];
+        $notify[] = ['success', $message];
         return back()->withNotify($notify);
     }
 
-    public function packageUpdate(Request $request, $id)
+    public function packageStatus($id)
     {
-
-        $request->validate([
-            'name'=>'required|string|max:190',
-            'add_size'=>'required|in:728x90,160x600,300x600,160x160,300x250',
-            'price'=>'required|numeric',
-            'day'=>'required|numeric'
-        ]);
-
-        $package = AdvertisePackage::findOrFail($id);
-        $package->name     = $request->name;
-        $package->add_size = $request->add_size;
-        $package->price    = $request->price;
-        $package->day      = $request->day;
-        $package->status   = $request->has('status') ? Status::ENABLE : Status::DISABLE;
-        $package->save();
-
-        $notify[] = ['success', 'Package has been updated'];
-        return back()->withNotify($notify);
+        return AdvertisePackage::changeStatus($id);
     }
 
     public function adminAdds() {

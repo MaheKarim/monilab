@@ -47,10 +47,8 @@ class HyipAddonController extends Controller
 
         if ($request->hasFile('image')) {
             try {
-                // TODO:: Image Upload
                 $payment_accept_image = fileUploader($request->image, getFilePath('paymentAccept'), getFileSize('paymentAccept'));
 
-                // If updating, delete the old image
                 if ($isUpdate && $paymentAccept->image) {
                     fileManager()->removeFile(getFilePath('paymentAccept') . '/' . $paymentAccept->image);
                 }

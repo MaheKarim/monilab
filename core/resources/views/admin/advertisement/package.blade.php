@@ -18,22 +18,35 @@
                             </tr>
                             </thead>
                             <tbody class="list">
-                            @foreach ($packages as $item)
+                            @foreach ($packages as $package)
                                 <tr>
-                                    <td data-label="@lang('Package Name')">{{ __(Str::limit($item->name,25)) }}</td>
-                                    <td data-label="Ad Size">
-                                        {{$item->add_size}}
+                                    <td>{{ __(Str::limit($package->name,25)) }}</td>
+                                    <td>{{ $package->add_size}}</td>
+                                    <td>{{ $package->price }}</td>
+                                    <td>{{ $package->day }}</td>
+                                    <td>@php echo $package->statusBadge @endphp </td>
+                                    <td>
+                                        <div class="button-group">
+                                            <button class="btn btn-outline--primary cuModalBtn btn-sm"
+                                                    data-modal_title="@lang('Edit Package')"
+                                                    data-resource="{{ $package }}">
+                                                <i class="las la-pencil-alt"></i>@lang('Edit')
+                                            </button>
+                                            @if ($package->status == Status::ACTIVE)
+                                                <button class="btn btn-sm btn-outline--danger ms-1 confirmationBtn"
+                                                        data-question="@lang('Are you sure to disable this package?')"
+                                                        data-action="{{ route('admin.advertise.package.status', $package->id) }}">
+                                                    <i class="la la-eye-slash"></i> @lang('Disable')
+                                                </button>
+                                            @else
+                                                <button class="btn btn-sm btn-outline--success ms-1 confirmationBtn"
+                                                        data-question="@lang('Are you sure to enable this package?')"
+                                                        data-action="{{ route('admin.advertise.package.status', $package->id) }}">
+                                                    <i class="la la-eye"></i> @lang('Enable')
+                                                </button>
+                                            @endif
+                                        </div>
                                     </td>
-                                    <td data-label="@lang('Price')">{{ $item->day }}</td>
-                                    <td data-label="@lang('Price For')">{{ $item->price }}</td>
-                                    <td data-label="@lang('Status')">
-                                        @if($item->status == 1)
-                                            <span class="text--small badge font-weight-normal badge--success">@lang('Active')</span>
-                                        @else
-                                            <span class="text--small badge font-weight-normal badge--warning">@lang('Disabled')</span>
-                                        @endif
-                                    </td>
-                                    <td data-label="@lang('Action')"><a href="#" class="icon-btn  updateBtn" data-route="{{ route('admin.advertise.package.update',$item->id) }}" data-resourse="{{$item}}" data-toggle="modal" data-target="#updateBtn"><i class="la la-pencil-alt"></i></a></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -44,13 +57,13 @@
         </div>
     </div>
 
-    {{-- Add METHOD MODAL --}}
-    <div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+    {{-- Add & Update Modal --}}
+    <div id="cuModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> @lang('Add New Package')</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -59,7 +72,8 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>@lang('Package Name')</label>
-                            <input type="text"class="form-control" placeholder="@lang('Example : Gold')" name="name" required>
+                            <input type="text" class="form-control" placeholder="@lang('Example : Gold')" name="name"
+                                   required>
                         </div>
                         <div class="form-group">
                             <label>@lang('Add Size')</label>
@@ -73,34 +87,27 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>@lang('Price')</label>
+                            <label
+                                class="form-control-label font-weight-bold">@lang('Price')</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" name="price" required/>
-                                <div class="input-group-append">
-                                    <div class="input-group-text"><span
-                                            class="currency_symbol">{{ gs('cur_text') }}</span>
-                                    </div>
-                                </div>
+                                <input type="number" class="form-control form--control"
+                                       name="price" step="0.01" required/>
+                                <span class="input-group-text">{{ gs('cur_text') }}</span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>@lang('Price For')</label>
+                            <label
+                                class="form-control-label font-weight-bold">@lang('Price For')</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" name="day" required/>
-                                <div class="input-group-append">
-                                    <div class="input-group-text"><span
-                                            class="currency_symbol">@lang('Day')</span>
-                                    </div>
-                                </div>
+                                <input type="number" class="form-control form--control"
+                                       name="day" step="0.01" required/>
+                                <span class="input-group-text">@lang('Day')</span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="form-control-label font-weight-bold">@lang('Status')</label>
-                            <input type="checkbox" data-width="100%" data-size="large" data-onstyle="-success" data-offstyle="-danger" data-toggle="toggle" data-on="Active" data-off="Disabled" name="status">
-                        </div>
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn--dark" data-dismiss="modal">@lang('Close')</button>
+                        <button type="button" class="btn btn--dark" data-bs-dismiss="modal">@lang('Close')</button>
                         <button type="submit" class="btn btn--primary">@lang('Save')</button>
                     </div>
                 </form>
@@ -108,103 +115,14 @@
         </div>
     </div>
 
-
-    {{-- Update METHOD MODAL --}}
-    <div id="updateBtn" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"> @lang('Update Package')</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="" class="edit-route" method="POST">
-                    @csrf
-
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>@lang('Package Name')</label>
-                            <input type="text"class="form-control name" placeholder="@lang('Example : Gold')" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label>@lang('Add Size')</label>
-                            <select name="add_size" class="form-control" required>
-                                <option value="" selected>@lang('Select One')</option>
-                                <option value="728x90">@lang('728x90')</option>
-                                <option value="160x600">@lang('160x600')</option>
-                                <option value="300x600">@lang('300x600')</option>
-                                <option value="160x160">@lang('160x160')</option>
-                                <option value="300x250">@lang('300x250')</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>@lang('Price')</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control form--control" placeholder="0" name="price" required/>
-                                <span class="input-group-text">{{ gs('cur_text') }}</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>@lang('Price For')</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control form--control day" placeholder="0" name="day" required/>
-                                <span class="input-group-text">@lang('Day')</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label font-weight-bold">@lang('Status')</label>
-                            <input id="status" type="checkbox" data-width="100%" data-size="large" data-onstyle="-success" data-offstyle="-danger" data-toggle="toggle" data-on="Active" data-off="Disabled" name="status" >
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn--dark" data-dismiss="modal">@lang('Close')</button>
-                        <button type="submit" class="btn btn--primary">@lang('Update')</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    <x-confirmation-modal/>
 @endsection
 @push('breadcrumb-plugins')
-    <button class="btn btn-sm btn-outline--primary float-sm-end addBtn"
-       type="button"> <i class="las la-plus"></i>@lang('Add new')
+    <button class="btn btn-sm btn-outline--primary float-sm-end cuModalBtn"
+            data-modal_title="@lang('Add New Package')" type="button"><i class="las la-plus"></i>@lang('Add new')
     </button>
 @endpush
-@push('script')
 
-    <script>
-        (function($){
-            "use strict";
-            $('.addBtn').on('click', function () {
-                var modal = $('#addModal');
-                modal.modal('show');
-            });
-
-            $('.updateBtn').on('click', function () {
-                var modal = $('#updateBtn');
-
-                var resourse = $(this).data('resourse');
-
-                var route = $(this).data('route');
-                $('.name').val(resourse.name);
-                $('.price').val(resourse.price);
-                $('.day').val(resourse.day);
-
-                if(resourse.status == 0){
-                    modal.find('.toggle').addClass('btn--danger off').removeClass('btn--success');
-                    modal.find('input[name="status"]').prop('checked',false);
-                }else{
-                    modal.find('.toggle').removeClass('btn--danger off').addClass('btn--success');
-                    modal.find('input[name="status"]').prop('checked',true);
-                }
-
-                $('select[name=add_size]').val(resourse.add_size);
-                $('.edit-route').attr('action',route);
-            });
-        })(jQuery);
-
-    </script>
+@push('script-lib')
+    <script src="{{ asset('assets/admin/js/cu-modal.js') }}"></script>
 @endpush
