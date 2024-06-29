@@ -87,6 +87,16 @@
             "title": "Package",
             "route_name": "admin.advertise.package",
             "menu_active": "admin.advertise.package"
+        },{
+            "keyword": ["Advertisement", "Admin Adds", "Advertisement Admin"],
+            "title": "Admin Adds",
+            "route_name": "admin.advertise.admin",
+            "menu_active": "admin.advertise.admin"
+        },{
+            "keyword": ["Advertisement", "User Adds", "Advertisement User"],
+            "title": "User Adds",
+            "route_name": "admin.advertise.user",
+            "menu_active": "admin.advertise.user"
         }]
     },
     "manage_users": {

@@ -52,6 +52,11 @@
                             </tbody>
                         </table>
                     </div>
+                    @if ($packages->hasPages())
+                        <div class="card-footer py-4">
+                            {{ paginateLinks($packages) }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

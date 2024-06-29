@@ -473,3 +473,14 @@ function frontendImage($sectionName, $image, $size = null,$seo = false)
     }
     return getImage('assets/images/frontend/' . $sectionName . '/' . $image, $size);
 }
+
+function adsSizes()
+{
+    return [
+      '728x90',
+      '160x600',
+      '300x600',
+      '160x160',
+      '300x250',
+    ];
+}

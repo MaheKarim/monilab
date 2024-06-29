@@ -101,9 +101,9 @@ Route::middleware('admin')->group(function () {
 
         //Advertise
         Route::get('admin', 'adminAdds')->name('admin');
+        Route::post('admin/store/{id?}', 'adminAddsStore')->name('admin.store');
+        Route::post('admin/status/{id}', 'addsStatus')->name('status');
         Route::get('user', 'userAdds')->name('user');
-        Route::post('admin/store', 'adminAddsStore')->name('admin.store');
-        Route::post('admin/update/{id}', 'addsUpdate')->name('update');
     });
 
     // Users Manager

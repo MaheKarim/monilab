@@ -57,9 +57,7 @@ class FileInfo
         $data['push'] = [
             'path'      =>'assets/images/push_notification',
         ];
-        $data['appPurchase'] = [
-            'path'      =>'assets/in_app_purchase_config',
-        ];
+
         $data['maintenance'] = [
             'path'      =>'assets/images/maintenance',
             'size'      =>'660x325',
@@ -94,6 +92,9 @@ class FileInfo
         $data['temp_hyip'] = [
             'path' => 'assets/images/temp_hyip',
             'size' => '125x125'
+        ];
+        $data['advertisement'] = [
+            'path' => 'assets/images/admin_add',
         ];
         return $data;
 	}
