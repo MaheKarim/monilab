@@ -21,6 +21,7 @@ use App\Rules\FileTypeValidate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -29,7 +30,30 @@ class UserController extends Controller
     public function home()
     {
         $pageTitle = 'Dashboard';
-        return view('Template::user.dashboard', compact('pageTitle'));
+        $user = Auth::user();
+
+        $hyip_chart_click['month'] = collect([]);
+        $hyip_chart_click['click'] = collect([]);
+
+        $hyip_chart = Hyip::where('user_id',$user->id)->where('status', Status::ENABLE)->whereYear('created_at', '=', date('Y'))->orderBy('created_at')->groupBy(DB::Raw("MONTH(created_at)"))->get();
+
+        $hyip_chart_data = $hyip_chart->map(function ($query) use ($hyip_chart_click) {
+            $hyip_chart_click['month'] = $query->created_at->format('F');
+            $hyip_chart_click['click'] = $query->whereMonth('created_at',$query->created_at)->sum('click');
+            return $hyip_chart_click;
+        });
+
+        $add_chart_click['month'] = collect([]);
+        $add_chart_click['click'] = collect([]);
+
+        $add_chart = Advertise::where('user_id',$user->id)->where('status', Status::ENABLE)->whereYear('end_date', '=', date('Y'))->orderBy('end_date')->groupBy(DB::Raw("MONTH(end_date)"))->get();
+
+        $add_chart_data = $add_chart->map(function ($qur) use ($add_chart_click) {
+            $add_chart_click['month'] = Carbon::parse($qur->end_date)->format('F');
+            $add_chart_click['click'] = $qur->whereMonth('end_date',Carbon::parse($qur->end_date))->sum('click');
+            return $add_chart_click;
+        });
+        return view('Template::user.dashboard', compact('pageTitle', 'hyip_chart_data','add_chart_data','user'));
     }
 
     public function depositHistory(Request $request)

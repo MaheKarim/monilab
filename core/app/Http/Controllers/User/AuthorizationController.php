@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Hyip;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -24,6 +25,11 @@ class AuthorizationController extends Controller
 
     public function authorizeForm()
     {
+        $top_payment_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->where('top_payment_site', Status::ENABLE)->latest()->get();
         $user = auth()->user();
         if (!$user->status) {
             $pageTitle = 'Banned';
@@ -52,7 +58,7 @@ class AuthorizationController extends Controller
             ],[$type]);
         }
 
-        return view('Template::user.auth.authorization.'.$type, compact('user', 'pageTitle'));
+        return view('Template::user.auth.authorization.'.$type, compact('user', 'pageTitle', 'top_payment_hyips'));
 
     }
 

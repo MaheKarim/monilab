@@ -281,21 +281,6 @@ Route::middleware('admin')->group(function () {
 
     });
 
-
-    Route::controller('CronConfigurationController')->name('cron.')->prefix('cron')->group(function () {
-        Route::get('index', 'cronJobs')->name('index');
-        Route::post('store', 'cronJobStore')->name('store');
-        Route::post('update', 'cronJobUpdate')->name('update');
-        Route::post('delete/{id}', 'cronJobDelete')->name('delete');
-        Route::get('schedule', 'schedule')->name('schedule');
-        Route::post('schedule/store', 'scheduleStore')->name('schedule.store');
-        Route::post('schedule/status/{id}', 'scheduleStatus')->name('schedule.status');
-        Route::get('schedule/pause/{id}', 'schedulePause')->name('schedule.pause');
-        Route::get('schedule/logs/{id}', 'scheduleLogs')->name('schedule.logs');
-        Route::post('schedule/log/resolved/{id}', 'scheduleLogResolved')->name('schedule.log.resolved');
-        Route::post('schedule/log/flush/{id}', 'logFlush')->name('log.flush');
-    });
-
     //KYC setting
     Route::controller('KycController')->group(function () {
         Route::get('kyc-setting', 'setting')->name('kyc.setting');

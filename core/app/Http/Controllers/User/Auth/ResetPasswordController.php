@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\Constants\Status;
 use App\Http\Controllers\Controller;
+use App\Models\Hyip;
 use App\Models\PasswordReset;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +22,12 @@ class ResetPasswordController extends Controller
             $notify[] = ['error', 'Invalid token'];
             return to_route('user.password.request')->withNotify($notify);
         }
-        return view('Template::user.auth.passwords.reset')->with(
+        $top_payment_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->where('top_payment_site', Status::ENABLE)->latest()->get();
+        return view('Template::user.auth.passwords.reset', compact('top_payment_hyips'))->with(
             ['token' => $token, 'email' => $email, 'pageTitle' => 'Reset Password']
         );
     }
@@ -53,7 +60,6 @@ class ResetPasswordController extends Controller
         $notify[] = ['success', 'Password changed successfully'];
         return to_route('user.login')->withNotify($notify);
     }
-
 
     protected function rules()
     {

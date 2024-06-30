@@ -24,20 +24,39 @@ Route::get('app/deposit/confirm/{hash}', 'Gateway\PaymentController@appDepositCo
 
 Route::controller('SiteController')->group(function () {
     Route::get('/contact', 'contact')->name('contact');
+
     Route::post('/contact', 'contactSubmit');
+
     Route::get('/change/{lang?}', 'changeLanguage')->name('lang');
 
     Route::get('cookie-policy', 'cookiePolicy')->name('cookie.policy');
 
     Route::get('/cookie/accept', 'cookieAccept')->name('cookie.accept');
 
-    Route::get('blog/{slug}', 'blogDetails')->name('blog.details');
-
     Route::get('policy/{slug}', 'policyPages')->name('policy.pages');
 
     Route::get('placeholder-image/{size}', 'placeholderImage')->withoutMiddleware('maintenance')->name('placeholder.image');
+
     Route::get('maintenance-mode','maintenance')->withoutMiddleware('maintenance')->name('maintenance');
 
     Route::get('/{slug}', 'pages')->name('pages');
+
     Route::get('/', 'index')->name('home');
+
+    //Add Click Count
+    Route::get('/add-count', 'clickCount')->name('click.count');
+
+    //Hyip Click Count
+    Route::get('/hyip-click-count', 'hyipClickCount')->name('hyip.click.count');
+
+    //React
+    Route::get('/hyip-react/{id}', 'react')->name('react');
+
+    Route::post('/hyip-vote', 'vote')->name('vote');
+
+    Route::post('/hyip-report', 'report')->name('report');
+
+    Route::get('/hyips/{type?}', 'hyipType');
+
+    Route::get('/search', 'search')->name('search');
 });

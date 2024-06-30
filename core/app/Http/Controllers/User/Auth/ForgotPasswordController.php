@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\Constants\Status;
 use App\Http\Controllers\Controller;
+use App\Models\Hyip;
 use App\Models\PasswordReset;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,7 +14,12 @@ class ForgotPasswordController extends Controller
     public function showLinkRequestForm()
     {
         $pageTitle = "Account Recovery";
-        return view('Template::user.auth.passwords.email', compact('pageTitle'));
+        $top_payment_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->where('top_payment_site', Status::ENABLE)->latest()->get();
+        return view('Template::user.auth.passwords.email', compact('pageTitle', 'top_payment_hyips'));
     }
 
     public function sendResetCodeEmail(Request $request)
@@ -55,7 +62,12 @@ class ForgotPasswordController extends Controller
         $email = $user->email;
         session()->put('pass_res_mail',$email);
         $notify[] = ['success', 'Password reset email sent successfully'];
-        return to_route('user.password.code.verify')->withNotify($notify);
+        $top_payment_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->where('top_payment_site', Status::ENABLE)->latest()->get();
+        return to_route('user.password.code.verify', compact('top_payment_hyips'))->withNotify($notify);
     }
 
     public function findFieldType()
@@ -74,7 +86,13 @@ class ForgotPasswordController extends Controller
             $notify[] = ['error','Oops! session expired'];
             return to_route('user.password.request')->withNotify($notify);
         }
-        return view('Template::user.auth.passwords.code_verify',compact('pageTitle','email'));
+
+        $top_payment_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->where('top_payment_site', Status::ENABLE)->latest()->get();
+        return view('Template::user.auth.passwords.code_verify',compact('pageTitle','email', 'top_payment_hyips'));
     }
 
     public function verifyCode(Request $request)

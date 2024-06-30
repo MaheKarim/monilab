@@ -474,8 +474,7 @@ function frontendImage($sectionName, $image, $size = null,$seo = false)
     return getImage('assets/images/frontend/' . $sectionName . '/' . $image, $size);
 }
 
-function adsSizes()
-{
+function adsSizes() {
     return [
       '728x90',
       '160x600',
@@ -484,3 +483,44 @@ function adsSizes()
       '300x250',
     ];
 }
+
+function ads_show($size) {
+
+    $current_date = \Carbon\Carbon::now()->toDateString();
+
+    $ads = \App\Models\Advertise::where('add_size',$size)->where(function($query){
+        $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+            $user->where('status', Status::ENABLE);
+        });
+    })->where(function($date) use ($current_date){
+        $date->orWhere('end_date',null)->orWhere('end_date','>=',$current_date);
+    })->where('status', Status::ENABLE)->inRandomOrder()->first();
+
+    if (!empty($ads)) {
+        $ads->increment('impression');
+        return  '<a  target="_blank" href="'.$ads->url.'" class="click" data-id="'.$ads->id.'"><img src="'.getImage('assets/images/front-image/'.$ads->image).'" alt="image" class="w-100"></a>';
+    }else{
+
+        return '';
+    }
+
+}
+
+function getCustomCaptcha($height = 46, $width = '100%', $bgcolor = '#003', $textcolor = '#abc')
+{
+    $textcolor = '#'.App\Models\GeneralSetting::first()->base_color;
+    $captcha = \App\Models\Extension::where('act', 'custom-captcha')->where('status', 1)->first();
+
+    $code = rand(100000, 999999);
+    $char = str_split($code);
+    $ret = '<link href="https://fonts.googleapis.com/css?family=Henny+Penny&display=swap" rel="stylesheet">';
+    $ret .= '<div style="height: ' . $height . 'px; line-height: ' . $height . 'px; width:' . $width . '; text-align: center; background-color: ' . $bgcolor . '; color: ' . $textcolor . '; font-size: ' . ($height - 20) . 'px; font-weight: bold; letter-spacing: 20px; font-family: \'Henny Penny\', cursive;  -webkit-user-select: none; -moz-user-select: none;-ms-user-select: none;user-select: none;  display: flex; justify-content: center;">';
+    foreach ($char as $value) {
+        $ret .= '<span style="    float:left;     -webkit-transform: rotate(' . rand(-60, 60) . 'deg);">' . $value . '</span>';
+    }
+    $ret .= '</div>';
+    $captchaSecret = hash_hmac('sha256', $code, $captcha->shortcode->random_key->value);
+    $ret .= '<input type="hidden" name="captcha_secret" value="' . $captchaSecret . '">';
+    return $ret;
+}
+

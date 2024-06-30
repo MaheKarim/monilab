@@ -6,6 +6,7 @@ use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Lib\Intended;
 use App\Models\AdminNotification;
+use App\Models\Hyip;
 use App\Models\User;
 use App\Models\UserLogin;
 use Illuminate\Auth\Events\Registered;
@@ -29,9 +30,13 @@ class RegisterController extends Controller
     {
         $pageTitle = "Register";
         Intended::identifyRoute();
-        return view('Template::user.auth.register', compact('pageTitle'));
+        $top_payment_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->where('top_payment_site', Status::ENABLE)->latest()->get();
+        return view('Template::user.auth.register', compact('pageTitle', 'top_payment_hyips'));
     }
-
 
     protected function validator(array $data)
     {
@@ -82,8 +87,6 @@ class RegisterController extends Controller
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
     }
-
-
 
     protected function create(array $data)
     {

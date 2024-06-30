@@ -15,7 +15,7 @@ class AdvertiseController extends Controller
     public function packageAll()
     {
         $pageTitle = 'All Packages';
-        $packages = AdvertisePackage::latest()->get();
+        $packages = AdvertisePackage::latest()->paginate(getPaginate());
         return view('admin.advertisement.package',compact('pageTitle','packages'));
     }
 

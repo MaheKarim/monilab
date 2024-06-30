@@ -502,13 +502,7 @@
         </div>
     </div>
 
-    @include('admin.partials.cron_modal')
 @endsection
-@push('breadcrumb-plugins')
-    <button class="btn btn-outline--primary btn-sm" data-bs-toggle="modal" data-bs-target="#cronModal">
-        <i class="las la-server"></i>@lang('Cron Setup')
-    </button>
-@endpush
 
 
 @push('script-lib')

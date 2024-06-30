@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Lib\Intended;
+use App\Models\Hyip;
 use App\Models\UserLogin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Status;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
 
     use AuthenticatesUsers;
-
-
     protected $username;
-
 
     public function __construct()
     {
@@ -29,7 +27,12 @@ class LoginController extends Controller
     {
         $pageTitle = "Login";
         Intended::identifyRoute();
-        return view('Template::user.auth.login', compact('pageTitle'));
+        $top_payment_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->where('top_payment_site', Status::ENABLE)->latest()->get();
+        return view('Template::user.auth.login', compact('pageTitle', 'top_payment_hyips'));
     }
 
     public function login(Request $request)
