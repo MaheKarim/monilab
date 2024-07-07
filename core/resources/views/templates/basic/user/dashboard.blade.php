@@ -48,7 +48,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mrb-30">
                         <div class="dash-item d-flex flex-wrap justify-content-between text-right">
                             <div class="dash-icon">
-                                <i class="fas fa-wallet"></i>
+                                <i class="las la-wallet"></i>
                             </div>
                             <div class="dash-content">
                                 <h3 class="title">{{ showAmount(@$user->balance, 2) }}</h3>
@@ -73,7 +73,7 @@
                                 <i class="fas fa-check"></i>
                             </div>
                             <div class="dash-content">
-                                <h3 class="title">{{ $user->hyips()->where('status',1)->count() }}</h3>
+                                <h3 class="title">{{ $user->hyips()->where('status', \App\Constants\Status::ENABLE)->count() }}</h3>
                                 <p>@lang('Active Hyip')</p>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                                 <i class="fas fa-spinner"></i>
                             </div>
                             <div class="dash-content">
-                                <h3 class="title">{{ $user->hyips()->where('status',0)->count() }}</h3>
+                                <h3 class="title">{{ $user->hyips()->where('status', \App\Constants\Status::DISABLE)->count() }}</h3>
                                 <p>@lang('Pending Hyips')</p>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                                 <i class="fas fa-skiing"></i>
                             </div>
                             <div class="dash-content">
-                                <h3 class="title">{{ $user->adds()->where('status',1)->where('end_date','>=',\Carbon\Carbon::now()->toDateString())->count() }}</h3>
+                                <h3 class="title">{{ $user->adds()->where('status', \App\Constants\Status::ENABLE)->where('end_date','>=',\Carbon\Carbon::now()->toDateString())->count() }}</h3>
                                 <p>@lang('Active Advertise')</p>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                                 <i class="fas fa-spinner"></i>
                             </div>
                             <div class="dash-content">
-                                <h3 class="title">{{ $user->adds()->where('status',0)->count() }}</h3>
+                                <h3 class="title">{{ $user->adds()->where('status', \App\Constants\Status::DISABLE)->count() }}</h3>
                                 <p>@lang('Pending Advertise')</p>
                             </div>
                         </div>

@@ -35,7 +35,7 @@ class UserController extends Controller
         $hyip_chart_click['month'] = collect([]);
         $hyip_chart_click['click'] = collect([]);
 
-        $hyip_chart = Hyip::where('user_id',$user->id)->where('status', Status::ENABLE)->whereYear('created_at', '=', date('Y'))->orderBy('created_at')->groupBy(DB::Raw("MONTH(created_at)"))->get();
+        $hyip_chart = Hyip::where('user_id', $user->id)->where('status', Status::ENABLE)->whereYear('created_at', '=', date('Y'))->orderBy('created_at')->groupBy(DB::Raw("MONTH(created_at)"))->get();
 
         $hyip_chart_data = $hyip_chart->map(function ($query) use ($hyip_chart_click) {
             $hyip_chart_click['month'] = $query->created_at->format('F');

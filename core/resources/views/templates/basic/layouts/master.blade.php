@@ -83,6 +83,7 @@
 <script src="{{asset($activeTemplateTrue.'js/jquery-migrate-3.4.1.js')}}"></script>
 <!-- bootstrap js -->
 <script src="{{asset($activeTemplateTrue.'js/bootstrap.min.js')}}"></script>
+<script src="{{asset($activeTemplateTrue.'js/bootstrap.bundle.min.js')}}"></script>
 <!-- magnific-popup js -->
 <script src="{{asset($activeTemplateTrue.'js/jquery.magnific-popup.js')}}"></script>
 <!-- isotope -->
@@ -97,6 +98,8 @@
 <script src="{{asset($activeTemplateTrue.'js/odometer.min.js')}}"></script>
 <!-- syotimer js -->
 <script src="{{asset($activeTemplateTrue.'js/jquery.syotimer.js')}}"></script>
+<script src="{{asset($activeTemplateTrue.'js/popper.min.js')}}"></script>
+
 <script src="{{asset($activeTemplateTrue.'js/syotimer.lang.js')}}"></script>
 <!-- wow js file -->
 <script src="{{asset($activeTemplateTrue.'js/wow.min.js')}}"></script>

@@ -165,6 +165,7 @@
 <script src="{{asset($activeTemplateTrue.'js/viewport.jquery.js')}}"></script>
 <!-- odometer js -->
 <script src="{{asset($activeTemplateTrue.'js/odometer.min.js')}}"></script>
+<script src="{{asset($activeTemplateTrue.'js/proper.min.js')}}"></script>
 <!-- syotimer js -->
 <script src="{{asset($activeTemplateTrue.'js/jquery.syotimer.js')}}"></script>
 <script src="{{asset($activeTemplateTrue.'js/syotimer.lang.js')}}"></script>
