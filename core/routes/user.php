@@ -54,7 +54,6 @@ Route::middleware('auth')->name('user.')->group(function () {
     Route::middleware(['check.status','registration.complete'])->group(function () {
 
         Route::namespace('User')->group(function () {
-
             Route::controller('UserController')->group(function(){
                 Route::get('dashboard', 'home')->name('home');
                 Route::get('download-attachments/{file_hash}', 'downloadAttachment')->name('download.attachment');
@@ -63,11 +62,6 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('twofactor', 'show2faForm')->name('twofactor');
                 Route::post('twofactor/enable', 'create2fa')->name('twofactor.enable');
                 Route::post('twofactor/disable', 'disable2fa')->name('twofactor.disable');
-
-                //KYC
-                Route::get('kyc-form','kycForm')->name('kyc.form');
-                Route::get('kyc-data','kycData')->name('kyc.data');
-                Route::post('kyc-submit','kycSubmit')->name('kyc.submit');
 
                 //Report
                 Route::any('deposit/history', 'depositHistory')->name('deposit.history');
@@ -88,24 +82,12 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('hyip/update/{id}', 'hyipUpdate')->name('hyip.update');
                 Route::get('hyip/update/pending', 'hyipUpdatePending')->name('hyip.update.pending');
             });
-
-        // Profile setting
-        Route::controller('ProfileController')->group(function(){
+            // Profile setting
+            Route::controller('ProfileController')->group(function(){
                 Route::get('profile-setting', 'profile')->name('profile.setting');
                 Route::post('profile-setting', 'submitProfile');
                 Route::get('change-password', 'changePassword')->name('change.password');
                 Route::post('change-password', 'submitPassword');
-            });
-
-       // Withdraw
-        Route::controller('WithdrawController')->prefix('withdraw')->name('withdraw')->group(function(){
-                Route::middleware('kyc')->group(function(){
-                    Route::get('/', 'withdrawMoney');
-                    Route::post('/', 'withdrawStore')->name('.money');
-                    Route::get('preview', 'withdrawPreview')->name('.preview');
-                    Route::post('preview', 'withdrawSubmit')->name('.submit');
-                });
-                Route::get('history', 'withdrawLog')->name('.history');
             });
         });
 

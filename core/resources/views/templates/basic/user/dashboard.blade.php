@@ -13,6 +13,7 @@
         <!-- notice-section start -->
         <section class="notice-section pd-t-30">
             <div class="custom-container">
+                <div class="notice"></div>
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
                         <div class="section-header">
