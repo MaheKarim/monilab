@@ -227,50 +227,6 @@
             }
         ]
     },
-    "withdrawals": {
-        "title": "Withdrawals",
-        "icon": "la la-bank",
-        "counters": ["pendingWithdrawCount"],
-        "menu_active": "admin.withdraw.data*",
-        "submenu": [{
-                "keyword": ["Pending Withdrawals", "Withdrawals", "Withdrawal management", "Withdrawal control", "Withdrawal status", "Withdrawal activity"],
-                "title": "Pending Withdrawals",
-                "route_name": "admin.withdraw.data.pending",
-                "menu_active": "admin.withdraw.data.pending",
-                "counter": "pendingWithdrawCount",
-                "params":{
-                    "user_id":""
-                }
-            },
-            {
-                "keyword": ["Approved Withdrawals", "Withdrawals", "Withdrawal management", "Withdrawal activity"],
-                "title": "Approved Withdrawals",
-                "route_name": "admin.withdraw.data.approved",
-                "menu_active": "admin.withdraw.data.approved",
-                "params":{
-                    "user_id":""
-                }
-            },
-            {
-                "keyword": ["Rejected Withdrawals", "Withdrawals", "Withdrawal management", "Withdrawal activity"],
-                "title": "Rejected Withdrawals",
-                "route_name": "admin.withdraw.data.rejected",
-                "menu_active": "admin.withdraw.data.rejected",
-                "params":{
-                    "user_id":""
-                }
-            },
-            {
-                "keyword": ["All Withdrawals", "Withdrawals", "Withdrawal management", "Withdrawal control", "Withdrawal activity"],
-                "title": "All Withdrawals",
-                "route_name": "admin.withdraw.data.all",
-                "menu_active": "admin.withdraw.data.all",
-                "params":{
-                    "user_id":""
-                }
-            }
-        ]
-    },
     "support_ticket": {
         "title": "Support Ticket",
         "icon": "la la-ticket",

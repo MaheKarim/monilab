@@ -48,7 +48,7 @@
     </div><!-- row end-->
 
     <div class="row mt-2 gy-4">
-        <div class="col-xxl-6">
+        <div class="col-xxl-12">
             <div class="card box-shadow3 h-100">
                 <div class="card-body">
                     <h5 class="card-title">@lang('Deposits')</h5>
@@ -122,79 +122,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-xxl-6">
-            <div class="card box-shadow3 h-100">
-                <div class="card-body">
-                    <h5 class="card-title">@lang('Withdrawals')</h5>
-                    <div class="widget-card-wrapper">
-                        <div class="widget-card bg--success">
-                            <a href="{{ route('admin.withdraw.data.all') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="lar la-credit-card"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ showAmount($withdrawals['total_withdraw_amount']) }}</h6>
-                                    <p class="widget-card-title">@lang('Total Withdrawn')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--warning">
-                            <a href="{{ route('admin.withdraw.data.pending') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-spinner"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ $withdrawals['total_withdraw_pending'] }}</h6>
-                                    <p class="widget-card-title">@lang('Pending Withdrawals')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--danger">
-                            <a href="{{ route('admin.withdraw.data.rejected') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="las la-times-circle"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ $withdrawals['total_withdraw_rejected'] }}</h6>
-                                    <p class="widget-card-title">@lang('Rejected Withdrawals')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--primary">
-                            <a href="{{ route('admin.withdraw.data.all') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="las la-percent"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ showAmount($withdrawals['total_withdraw_charge']) }}</h6>
-                                    <p class="widget-card-title">@lang('Withdrawal Charge')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
 
@@ -241,68 +168,7 @@
         </div><!-- dashboard-w1 end -->
     </div><!-- row end-->
 
-    <div class="row gy-4 mt-2">
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
-            <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="primary"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
-            <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="1"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
-            <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="2"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
-            <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="3"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
-            <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="4"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
-            <x-widget
-                style="5"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="5"
-            />
-        </div><!-- dashboard-w1 end -->
-    </div><!-- row end-->
+
 
     <div class="row gy-4 mt-2">
         <div class="col-xxl-3 col-sm-6">
@@ -350,103 +216,13 @@
             />
         </div><!-- dashboard-w1 end -->
     </div><!-- row end-->
-
-    <div class="row gy-4 mt-2">
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="3"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="primary"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="3"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="1"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="3"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="14"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="3"
-                link="#"
-                icon="las la-users"
-                title="Demo"
-                value="xxx"
-                bg="19"
-            />
-        </div><!-- dashboard-w1 end -->
-    </div><!-- row end-->
-
-    <div class="row gy-4 mt-2">
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="success"
-                type="2"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="warning"
-                type="2"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="danger"
-                type="2"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="primary"
-                type="2"
-            />
-        </div><!-- dashboard-w1 end -->
-    </div>
 
     <div class="row mb-none-30 mt-30">
-        <div class="col-xl-6 mb-30">
+        <div class="col-xl-12 mb-30">
             <div class="card">
               <div class="card-body">
                 <div class="d-flex flex-wrap justify-content-between">
-                    <h5 class="card-title">@lang('Deposit & Withdraw Report')</h5>
+                    <h5 class="card-title">@lang('Monthly Deposit Report')</h5>
 
                     <div id="dwDatePicker" class="border p-1 cursor-pointer rounded">
                         <i class="la la-calendar"></i>&nbsp;
@@ -457,22 +233,6 @@
               </div>
             </div>
           </div>
-        <div class="col-xl-6 mb-30">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between">
-                    <h5 class="card-title">@lang('Transactions Report')</h5>
-
-                    <div id="trxDatePicker" class="border p-1 cursor-pointer rounded">
-                        <i class="la la-calendar"></i>&nbsp;
-                        <span></span> <i class="la la-caret-down"></i>
-                    </div>
-                </div>
-
-                <div id="transactionChartArea"></div>
-              </div>
-            </div>
-        </div>
     </div>
 
     <div class="row mb-none-30 mt-5">

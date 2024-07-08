@@ -1,5 +1,7 @@
 @extends($activeTemplate.'layouts.master')
 @section('content')
+    @include($activeTemplate.'user.left-sidenav')
+
     <div class="container">
         <div class="row justify-content-center mt-4">
             <div class="col-md-12">

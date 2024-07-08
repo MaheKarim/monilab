@@ -1,8 +1,5 @@
 @extends($activeTemplate .'layouts.auth')
 @section('content')
-
-
-
     <section class="register-section add-list-section">
         <div class="container">
             <div class="add-list-area">
