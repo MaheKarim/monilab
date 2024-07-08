@@ -6,7 +6,7 @@
                     <li class="list-group-item {{menuActive('user.home')}}"><a href="{{ route('user.home') }}"><span><i class="fas fa-tachometer-alt"></i>@lang('Dashboard')</span></a></li>
                     <li class="list-group-item menu_has_children"><a href="#0"><span><i class="fas fa-credit-card"></i>@lang('Deposit')</span></a>
                         <ul class="sub-menu {{menuActive('user.deposit*',2)}}">
-                            <li class="{{menuActive('user.deposit.insert')}}"><a href="{{ route('user.deposit.insert') }}"><i class="far fa-stop-circle"></i>@lang('Deposit Now')</a></li>
+                            <li class="{{menuActive('user.deposit.index')}}"><a href="{{ route('user.deposit.index') }}"><i class="far fa-stop-circle"></i>@lang('Deposit Now')</a></li>
                             <li class="{{menuActive('user.deposit.history')}}"><a href="{{route('user.deposit.history')}}"><i class="far fa-stop-circle"></i>@lang('Deposit History')</a></li>
                         </ul>
                     </li>
