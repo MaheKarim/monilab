@@ -61,7 +61,6 @@ class GeneralSettingController extends Controller
         return view('admin.setting.configuration', compact('pageTitle'));
     }
 
-
     public function systemConfigurationSubmit(Request $request)
     {
         $general = gs();
@@ -81,7 +80,6 @@ class GeneralSettingController extends Controller
         $notify[] = ['success', 'System configuration updated successfully'];
         return back()->withNotify($notify);
     }
-
 
     public function logoIcon()
     {
@@ -141,8 +139,6 @@ class GeneralSettingController extends Controller
         return back()->withNotify($notify);
     }
 
-
-
     public function robot(){
         $pageTitle = 'Robots TXT';
         $file = 'robots.xml';
@@ -159,7 +155,6 @@ class GeneralSettingController extends Controller
         $notify[] = ['success','Robots txt updated successfully'];
         return back()->withNotify($notify);
     }
-
 
     public function customCssSubmit(Request $request){
         $file = activeTemplate(true).'css/custom.css';
@@ -232,7 +227,6 @@ class GeneralSettingController extends Controller
         return back()->withNotify($notify);
     }
 
-
     public function socialiteCredentials()
     {
         $pageTitle = 'Social Login Credentials';
@@ -273,36 +267,4 @@ class GeneralSettingController extends Controller
         return back()->withNotify($notify);
     }
 
-    public function inAppPurchase(){
-        $pageTitle = 'In App Purchase Configuration - Google Play Store';
-        $data      = null;
-        $fileExists = file_exists(getFilePath('appPurchase') . '/google_pay.json');
-        return view('admin.setting.in_app_purchase.google',compact('pageTitle','data','fileExists'));
-    }
-
-    public function inAppPurchaseConfigure(Request $request){
-        $request->validate([
-            'file' => ['required', new FileTypeValidate(['json'])],
-        ]);
-
-        try {
-            fileUploader($request->file, getFilePath('appPurchase'), filename:'google_pay.json');
-        } catch (\Exception $exp) {
-            $notify[] = ['error', 'Couldn\'t upload your file'];
-            return back()->withNotify($notify);
-        }
-
-        $notify[] = ['success', 'Configuration file uploaded successfully'];
-        return back()->withNotify($notify);
-    }
-
-    public function inAppPurchaseFileDownload()
-    {
-        $filePath = getFilePath('appPurchase') . '/google_pay.json';
-        if (!file_exists(getFilePath('appPurchase') . '/google_pay.json')) {
-            $notify[] = ['success', "File not found"];
-            return back()->withNotify($notify);
-        }
-        return response()->download($filePath);
-    }
 }

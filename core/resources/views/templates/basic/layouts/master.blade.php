@@ -38,7 +38,7 @@
     <!-- file input css link -->
     <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/bootstrap-fileinput.css')}}">
     <!-- site color -->
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue.'css/color.php') }}?color={{ gs('base_color') }}">
+    <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/color.php') }}?color={{ gs('base_color') }}">
 
     @stack('style-lib')
 

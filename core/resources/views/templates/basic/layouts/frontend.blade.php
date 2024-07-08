@@ -44,47 +44,7 @@
 
 
     <style>
-        .cookie-policy {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            border-top: 1px solid #e5e5e5;
-            padding: 30px 0;
-            z-index: 99999;
-            background: #0a1227;
-        }
 
-        .cookie-wrapper {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-        }
-        .cookie-wrapper .text--base{
-            color: blue
-        }
-
-        .cookie-wrapper .cmn--btn {
-            font-size: 12px;
-        }
-
-        .cookie-wrapper .cookie-cont {
-            max-width: 650px;
-        }
-
-        @media (max-width: 991px) {
-            .cookie-wrapper {
-                text-align: center;
-            }
-
-            .cookie-wrapper .cmn--btn {
-                margin-top: 30px;
-            }
-        }
     </style>
 
 </head>
@@ -124,22 +84,20 @@
 
 
 @php
-    $cookie = \App\Models\Frontend::where('data_keys','cookie.data')->first();
+    $cookie = App\Models\Frontend::where('data_keys','cookie.data')->first();
 @endphp
-@if(@$cookie->data_values->status && !session('cookie_accepted'))
-    <section class="cookie-policy cookie__wrapper">
-        <div class="container">
-            <div class="cookie-wrapper">
-                <div class="cookie-cont">
-                    <span>
-                        @php echo @$cookie->data_values->description @endphp
-                    </span>
-                    <a href="{{ @$cookie->data_values->link }}" class="text--base">@lang('Read more about cookies')</a>
-                </div>
-                <a href="#" class="cmn--btn btn--sm cmn-btn cookie-close policy">@lang('Accept Policy')</a>
-            </div>
+@if(($cookie->data_values->status == Status::ENABLE) && !\Cookie::get('gdpr_cookie'))
+    <!-- cookies dark version start -->
+    <div class="cookies-card text-center hide">
+        <div class="cookies-card__icon bg--base">
+            <i class="las la-cookie-bite"></i>
         </div>
-    </section>
+        <p class="mt-4 cookies-card__content">{{ $cookie->data_values->short_desc }} <a href="{{ route('cookie.policy') }}" target="_blank">@lang('learn more')</a></p>
+        <div class="cookies-card__btn mt-4">
+            <a href="javascript:void(0)" class="btn btn--base w-100 policy">@lang('Allow')</a>
+        </div>
+    </div>
+    <!-- cookies dark version end -->
 @endif
 
 <!-- Optional JavaScript -->

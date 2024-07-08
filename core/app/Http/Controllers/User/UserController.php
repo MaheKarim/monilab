@@ -292,7 +292,7 @@ class UserController extends Controller
         return view('Template::user.advertise.new', compact('pageTitle', 'package'));
     }
 
-    public function advertiseStore(Request $request, $id)
+    public function advertiseStore(Request $request, $id=0)
     {
         $request->validate([
             'day' => 'required|integer|gt:0',
@@ -314,10 +314,6 @@ class UserController extends Controller
         }
 
         $add_image = '';
-
-
-        $add_image = '';
-        // TODO:: Image Upload
         if($request->image){
             if ($request->image->getClientOriginalExtension() == 'gif'){
 
@@ -329,7 +325,7 @@ class UserController extends Controller
                     return back()->withNotify($notify);
                 }
 
-                $add_image = uploadFile($request->image, 'assets/images/front-image/');
+                $add_image = getFilePath($request->image);
             }else{
                 list($width, $height) = getimagesize($request->image);
                 $size = $width.'x'.$height;
@@ -337,7 +333,7 @@ class UserController extends Controller
                     $notify[]=['error','Sorry image size has to be '.$package->add_size];
                     return back()->withNotify($notify);
                 }
-                $add_image = uploadImage($request->image,'assets/images/front-image/');
+                $add_image = getImage($request->image,'assets/images/front-image/');
             }
         }
 
@@ -350,7 +346,6 @@ class UserController extends Controller
         $advertise->status = Status::DISABLE;
         $advertise->user_id = $user->id;
         $advertise->save();
-
 
         $user->balance = $user->balance - $final_price;
         $user->save();
@@ -585,7 +580,7 @@ class UserController extends Controller
     public function hyipUpdatePending()
     {
         $pageTitle = 'Hyip Update Pending';
-        $hyips = TempHyip::where('user_id', Auth::user()->id)->where('status', Status::ENABLE)->get();
+        $hyips = TempHyip::where('user_id', Auth::user()->id)->get();
         $payment_accepts = PaymentAccept::latest()->where('status', Status::ENABLE)->get();
         $features = Feature::latest()->get();
         $empty_message = 'No pending hyip update';

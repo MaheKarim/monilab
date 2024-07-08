@@ -78,14 +78,11 @@
                                 <tbody>
                                 @forelse ($adds as $item)
                                     <tr>
-                                        <td data-label="@lang('Add Size')">
-                                            {{$item->add_size}}
-
-                                        </td>
-                                        <td data-label="@lang('URL')">{{ $item->url }}</td>
-                                        <td data-label="@lang('Impression')">{{ $item->impression }}</td>
-                                        <td data-label="@lang('Click')">{{ $item->click }}</td>
-                                        <td data-label="@lang('Start Date')">
+                                        <td>{{$item->add_size}}</td>
+                                        <td>{{ $item->url }}</td>
+                                        <td>{{ $item->impression }}</td>
+                                        <td>{{ $item->click }}</td>
+                                        <td>
                                             @if($item->start_date)
                                                 {{ $item->start_date }}
                                             @else
@@ -99,7 +96,7 @@
                                                 <span class="badge badge-main">@lang('Not Available')</span>
                                             @endif
                                         </td>
-                                        <td data-label="@lang('Total Price')">{{ $item->price }}{{ $general->cur_sym }}</td>
+                                        <td data-label="@lang('Total Price')">{{ showAmount($item->price) }}</td>
 
                                         <td data-label="@lang('Status')">
                                             @if($item->status == 0)

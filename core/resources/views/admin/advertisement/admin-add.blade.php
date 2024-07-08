@@ -92,13 +92,19 @@
                                     <div class="image-size">
                                         <label for="" class="font-weight-bold">@lang('Size') <strong
                                                 class="text-danger">*</strong></label>
-                                        <select class="form-control" name="size">
-                                            <option value="" selected>@lang('---Please Select One ----')</option>
-                                            <option value="728x90">@lang('728x90')</option>
-                                            <option value="160x600">@lang('160x600')</option>
-                                            <option value="300x600">@lang('300x600')</option>
-                                            <option value="160x160">@lang('160x160')</option>
-                                            <option value="300x250">@lang('300x250')</option>
+{{--                                        <select class="form-control" name="size">--}}
+{{--                                            <option value="" selected>@lang('---Please Select One ----')</option>--}}
+{{--                                            <option value="728x90">@lang('728x90')</option>--}}
+{{--                                            <option value="160x600">@lang('160x600')</option>--}}
+{{--                                            <option value="300x600">@lang('300x600')</option>--}}
+{{--                                            <option value="160x160">@lang('160x160')</option>--}}
+{{--                                            <option value="300x250">@lang('300x250')</option>--}}
+{{--                                        </select>--}}
+
+                                        <select name="size" class="form-control" required>
+                                            @foreach(adsSizes() as $key => $size)
+                                                <option value="{{ $key }}">{{ $size }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

@@ -31,27 +31,27 @@
         <div class="payment-site mrb-30">
             <h3 class="title">@lang('Total Reaction')</h3>
             <ul class="payment-site-list">
-                <li class="d-flex flex-wrap justify-content-between">@lang('Happy') ({{ __($data['happy']) }})
+                <li class="d-flex flex-wrap justify-content-between">@lang('Happy') ({{ __($happy) }})
                     <div class="payment-thumb">
                         <img src="{{ asset('/assets') }}/images/emoji/happy.png" alt="emoji">
                     </div>
                 </li>
-                <li class="d-flex flex-wrap justify-content-between">@lang('Sad') ({{ __($data['$sad']) }})
+                <li class="d-flex flex-wrap justify-content-between">@lang('Sad') ({{ __($sad) }})
                     <div class="payment-thumb">
                         <img src="{{ asset('/assets') }}/images/emoji/emoji-2.png" alt="emoji">
                     </div>
                 </li>
-                <li class="d-flex flex-wrap justify-content-between">@lang('Wow') ({{ __($data['$wow']) }})
+                <li class="d-flex flex-wrap justify-content-between">@lang('Wow') ({{ __($wow) }})
                     <div class="payment-thumb">
                         <img src="{{ asset('/assets') }}/images/emoji/emoji-3.png" alt="emoji">
                     </div>
                 </li>
-                <li class="d-flex flex-wrap justify-content-between">@lang('Love') ({{ __($data['$love']) }})
+                <li class="d-flex flex-wrap justify-content-between">@lang('Love') ({{ __($love) }})
                     <div class="payment-thumb">
                         <img src="{{ asset('/assets') }}/images/emoji/emoji-4.png" alt="emoji">
                     </div>
                 </li>
-                <li class="d-flex flex-wrap justify-content-between">@lang('Angry') ({{ __($data['$angry']) }})
+                <li class="d-flex flex-wrap justify-content-between">@lang('Angry') ({{ __($angry) }})
                     <div class="payment-thumb">
                         <img src="{{ asset('/assets') }}/images/emoji/angry.png" alt="emoji">
                     </div>

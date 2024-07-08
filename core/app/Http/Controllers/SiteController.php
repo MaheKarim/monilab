@@ -59,19 +59,18 @@ class SiteController extends Controller
         })->where('status', Status::ENABLE)->orderBy('monitor_since', 'asc')->latest()->limit(7)->get();
 
         $reaction = Hyip::latest()->get();
-
-        $data['happy'] = $reaction->sum('happy');
-        $data['sad'] = $reaction->sum('sad');
-        $data['wow'] = $reaction->sum('wow');
-        $data['love'] = $reaction->sum('love');
-        $data['angry'] = $reaction->sum('angry');
+        $happy = $reaction->sum('happy');
+        $sad = $reaction->sum('sad');
+        $wow = $reaction->sum('wow');
+        $love = $reaction->sum('love');
+        $angry = $reaction->sum('angry');
 
         $polls = Poll::where('status', Status::ENABLE)->get();
 
         $data['types'] = Type::where('status', Status::ENABLE)->get();
 
         return view('Template::home', compact('pageTitle','sections','seoContents',
-            'seoImage', 'data', 'hyips', 'polls', 'top_payment_hyips', 'top_monitor_hyips'));
+            'seoImage', 'data', 'hyips', 'polls', 'top_payment_hyips', 'top_monitor_hyips', 'happy', 'sad', 'wow', 'love', 'angry'));
     }
 
     public function pages($slug)
@@ -93,24 +92,27 @@ class SiteController extends Controller
         $seoImage = @$seoContents->image ? getImage(getFilePath('seo') . '/' . @$seoContents->image, getFileSize('seo')) : null;
 
         $reaction = Hyip::latest()->get();
-        $data['happy'] = $reaction->sum('happy');
-        $data['sad'] = $reaction->sum('sad');
-        $data['wow'] = $reaction->sum('wow');
-        $data['love'] = $reaction->sum('love');
-        $data['angry'] = $reaction->sum('angry');
-        $data['top_payment_hyips'] = Hyip::where(function($query){
+        $happy = $reaction->sum('happy');
+        $sad = $reaction->sum('sad');
+        $wow = $reaction->sum('wow');
+        $love = $reaction->sum('love');
+        $angry = $reaction->sum('angry');
+
+        $top_payment_hyips = Hyip::where(function($query){
             $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
                 $user->where('status', Status::ENABLE);
             });
         })->where('status', Status::ENABLE)->where('top_payment_site', Status::ENABLE)->latest()->get();
-        $data['top_monitor_hyips'] = Hyip::where(function($query){
+
+        $top_monitor_hyips = Hyip::where(function($query){
             $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
                 $user->where('status', Status::ENABLE);
             });
         })->where('status', Status::ENABLE)->orderBy('monitor_since', 'asc')->latest()->limit(7)->get();
 
 
-        return view('Template::contact',compact('pageTitle','user','sections','seoContents','seoImage', 'data'));
+        return view('Template::contact',compact('pageTitle','user',
+            'sections','seoContents','seoImage', 'sad','happy','wow','love','angry', 'top_payment_hyips', 'top_monitor_hyips'));
     }
 
     public function contactSubmit(Request $request)
@@ -320,7 +322,6 @@ class SiteController extends Controller
             }
         }
     }
-
 
     public function vote(Request $request){
         $clientIP = request()->ip();

@@ -9,17 +9,17 @@
                         <table class="table table--light style--two">
                             <thead>
                             <tr>
-                                <th scope="col">@lang('SL')</th>
-                                <th scope="col">@lang('User')</th>
-                                <th scope="col">@lang('Add Size')</th>
-                                <th scope="col">@lang('Advertise For')</th>
-                                <th scope="col">@lang('Price')</th>
-                                <th scope="col">@lang('Start Date')</th>
-                                <th scope="col">@lang('End Date')</th>
-                                <th scope="col">@lang('Impression')</th>
-                                <th scope="col">@lang('Click')</th>
-                                <th scope="col">@lang('Status')</th>
-                                <th scope="col">@lang('Action')</th>
+                                <th>@lang('SL')</th>
+                                <th>@lang('User')</th>
+                                <th>@lang('Add Size')</th>
+                                <th>@lang('Advertise For')</th>
+                                <th>@lang('Price')</th>
+                                <th>@lang('Start Date')</th>
+                                <th>@lang('End Date')</th>
+                                <th>@lang('Impression')</th>
+                                <th>@lang('Click')</th>
+                                <th>@lang('Status')</th>
+                                <th>@lang('Action')</th>
                             </tr>
                             </thead>
                             <tbody class="list">
@@ -27,21 +27,9 @@
                                 <tr>
                                     <td >{{ $loop->index+1 }}</td>
                                     <td ><a href="{{ route('admin.users.detail',$item->user->id) }}">{{ $item->user->username }}</a></td>
-                                    <td >
-                                        @if ($item->add_size == 1)
-                                            @lang('16000 x 200')
-                                        @elseif ($item->add_size == 2)
-                                            @lang('830 x 180')
-                                        @elseif ($item->add_size == 3)
-                                            @lang('200 x 480')
-                                        @elseif ($item->add_size == 4)
-                                            @lang('310 x 380')
-                                        @elseif ($item->add_size == 5)
-                                            @lang('1600 x 150')
-                                        @endif
-                                    </td>
+                                    <td >{{ $item->add_size }}</td>
                                     <td >{{ $item->day }} @if($item->day == 1) @lang('Day') @else @lang('Days') @endif</td>
-                                    <td >{{ $item->price }} {{ $general->cur_sym }}</td>
+                                    <td >{{ showAmount($item->price) }}</td>
                                     <td >
                                         @if($item->start_date)
                                             {{ $item->start_date }}
@@ -69,7 +57,7 @@
                                             @endif
                                         @endif
                                     </td>
-                                    <td data-label="@lang('Action')"><a href="#" class="icon-btn  updateBtn" data-route="{{ route('admin.advertise.update',$item->id) }}" data-resourse="{{$item}}" data-toggle="modal" data-target="#updateBtn" data-image="{{ getImage(imagePath()['advertise']['path'].'/'. $item->image)}}"><i class="la la-pencil-alt"></i></a></td>
+                                    <td data-label="@lang('Action')"><a href="#" class="icon-btn  updateBtn" data-route="{{ route('admin.advertise.status',$item->id) }}" data-resourse="{{$item}}" data-toggle="modal" data-target="#updateBtn" data-image="{{ getImage(getFilePath('advertisement')) .'/'. $item->image }}"><i class="la la-pencil-alt"></i></a></td>
                                 </tr>
                             @endforeach
                             </tbody>

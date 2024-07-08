@@ -15,7 +15,7 @@
                         <li><a href="{{route('home')}}"><i class="fas fa-home"></i> @lang('Home')</a></li>
                         <li><a href="{{ route('contact') }}"><i class="fas fa-blender-phone"></i> @lang('Contact')</a></li>
                         <li><a href="{{ route('user.hyip.index') }}"><i class="fas fa-book-reader"></i> @lang('Your Hyip')</a></li>
-                        <li><a href="{{ route('user.advertise.index') }}"><i class="las la-ad"></i>@lang('Advertising')</a></li>
+                        <li><a href="{{ route('user.advertise.index') }}"><i class="fas fa-ad"></i>@lang('Advertising')</a></li>
                     </ul>
                 </div>
                 <div class="header-left-link">

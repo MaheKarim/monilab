@@ -1,5 +1,7 @@
 @extends($activeTemplate.'layouts.'.$layout)
 @section('content')
+    @include($activeTemplate.'user.left-sidenav')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -10,8 +12,8 @@
                             [@lang('Ticket')#{{ $myTicket->ticket }}] {{ $myTicket->subject }}
                         </h5>
                         @if($myTicket->status != Status::TICKET_CLOSE && $myTicket->user)
-                        <button class="btn btn-danger close-button btn-sm confirmationBtn" type="button" data-question="@lang('Are you sure to close this ticket?')" data-action="{{ route('ticket.close', $myTicket->id) }}"><i class="fas fa-lg fa-times-circle"></i>
-                        </button>
+                            <button class="btn btn-danger close-button btn-sm confirmationBtn" type="button" data-question="@lang('Are you sure to close this ticket?')" data-action="{{ route('ticket.close', $myTicket->id) }}"><i class="fas fa-lg fa-times-circle"></i>
+                            </button>
                         @endif
                     </div>
                     <div class="card-body">
@@ -82,10 +84,10 @@
                                 </div>
                             @endif
                         @empty
-                        <div class="empty-message text-center">
-                            <img src="{{ asset('assets/images/empty_list.png') }}" alt="empty">
-                            <h5 class="text-muted">@lang('No replies found here!')</h5>
-                        </div>
+                            <div class="empty-message text-center">
+                                <img src="{{ asset('assets/images/empty_list.png') }}" alt="empty">
+                                <h5 class="text-muted">@lang('No replies found here!')</h5>
+                            </div>
                         @endforelse
                     </div>
                 </div>

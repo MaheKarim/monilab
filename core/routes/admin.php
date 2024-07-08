@@ -104,6 +104,8 @@ Route::middleware('admin')->group(function () {
         Route::post('admin/store/{id?}', 'adminAddsStore')->name('admin.store');
         Route::post('admin/status/{id}', 'addsStatus')->name('status');
         Route::get('user', 'userAdds')->name('user');
+        Route::post('advertise/admin/update/{id}', 'addsUpdate')->name('update');
+
     });
 
     // Users Manager
@@ -273,12 +275,6 @@ Route::middleware('admin')->group(function () {
         //maintenance_mode
         Route::get('maintenance-mode', 'maintenanceMode')->name('maintenance.mode');
         Route::post('maintenance-mode', 'maintenanceModeSubmit');
-
-        //In app purchase
-        Route::get('in-app-purchase', 'inAppPurchase')->name('setting.app.purchase');
-        Route::post('in-app-purchase', 'inAppPurchaseConfigure');
-        Route::get('in-app-purchase/file/download', 'inAppPurchaseFileDownload')->name('setting.app.purchase.file.download');
-
     });
 
     //KYC setting

@@ -114,7 +114,7 @@
                                                                                            readonly>
                                                                                     <div class="input-group-append">
                                                                                         <span
-                                                                                            class="input-group-text">{{ gs('cur_sym' }}</span>
+                                                                                            class="input-group-text">{{ gs('cur_sym') }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

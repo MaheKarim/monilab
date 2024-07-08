@@ -58,18 +58,82 @@ class AdvertiseController extends Controller
         return view('admin.advertisement.admin-add',compact('pageTitle','admin_adds'));
     }
 
+//    public function adminAddsStore(Request $request, $id=0) {
+//
+//        $imgRequired = $id ? 'nullable' : 'required';
+//        $sizes = adsSizes();
+//
+//        $validation = [
+//            'url'   =>     'required|url|max:190',
+//            'image' => [$imgRequired, 'image', new FileTypeValidate(['jpeg', 'jpg', 'png', 'gif'])],
+//        ];
+//
+//        $request->validate($validation);
+//        if(!$id){
+//            $add = new Advertise();
+//            $message = 'Advertise has been added';
+//        }else{
+//            $add = Advertise::findOrFail($id);
+//            $message = 'Advertise has been updated';
+//        }
+//
+//        if($request->image) {
+//            $old = $add->image ?? null;
+//            if ($request->image->getClientOriginalExtension() == 'gif'){
+//                list($width, $height) = getFileSize($request->image);
+//                $size = $width.'x'.$height;
+//
+//                if($add->add_size != $size){
+//                    $notify[]=['error','Sorry image size has to be '.$add->add_size];
+//                    return back()->withNotify($notify);
+//                }
+//                $add->image = fileUploader($request->image, getFilePath('advertisement'),$request->size,$old);
+//            }else{
+//                list($width, $height) = getimagesize($request->image);
+//                $size = $width.'x'.$height;
+////                dd($size, $add->add_size, $sizes);
+//                if($size != $sizes){
+//                    $notify[]=['error','Sorry image size has to be '. $add->add_size];
+//                    return back()->withNotify($notify);
+//                }
+//                $add->image = fileUploader($request->image, getFilePath('advertisement'),$request->size,$old);
+//            }
+//        }
+//
+//        $add->user_id = Status::ADMIN;
+//        $add->add_size = $request->add_size;
+//        $add->day = $request->day;
+//        if (isset($request->status)) {
+//            if ($add->user_id != Status::DISABLE) {
+//                $add->end_date = Carbon::now()->addDays($add->day)->toDateString();
+//            }
+//
+//            $add->start_date = Carbon::now()->toDateString();
+//            $add->status = Status::ENABLE;
+//        }else{
+//            $add->status = Status::DISABLE;
+//        }
+//
+//        $add->url = $request->url;
+//        $add->save();
+//
+//        $notify[] = ['success', $message];
+//        return back()->withNotify($notify);
+//
+//    }
     public function adminAddsStore(Request $request, $id=0) {
-
         $imgRequired = $id ? 'nullable' : 'required';
         $sizes = adsSizes();
 
         $validation = [
             'url'   =>     'required|url|max:190',
             'image' => [$imgRequired, 'image', new FileTypeValidate(['jpeg', 'jpg', 'png', 'gif'])],
+            'add_size' => 'required|in:' . implode(',', array_keys($sizes)),
         ];
 
         $request->validate($validation);
-        if($id){
+
+        if(!$id){
             $add = new Advertise();
             $message = 'Advertise has been added';
         }else{
@@ -79,28 +143,27 @@ class AdvertiseController extends Controller
 
         if($request->image) {
             $old = $add->image ?? null;
-            if ($request->image->getClientOriginalExtension() == 'gif'){
-                list($width, $height) = getFileSize($request->image);
-                $size = $width.'x'.$height;
+            $image = $request->file('image');
 
-                if($add->add_size != $size){
-                    $notify[]=['error','Sorry image size has to be '.$add->add_size];
-                    return back()->withNotify($notify);
-                }
-                $add->image = fileUploader($request->image, getFilePath('advertisement'),$request->size,$old);
-            }else{
-                list($width, $height) = getFileSize($request->image);
-                $size = $width.'x'.$height;
-                if($add->add_size != $size){
-                    $notify[]=['error','Sorry image size has to be '.$add->add_size];
-                    return back()->withNotify($notify);
-                }
-                $add->image = fileUploader($request->image, getFilePath('advertisement'),$request->size,$old);
+            if ($image->getClientOriginalExtension() == 'gif'){
+                list($width, $height) = getimagesize($image->getPathname());
+            } else {
+                list($width, $height) = getimagesize($image->getPathname());
             }
+
+            $size = $width . 'x' . $height;
+            $expectedSize = $sizes[$request->size];
+
+            if($size != $expectedSize){
+                $notify[] = ['error', 'Sorry, image size has to be ' . $expectedSize];
+                return back()->withNotify($notify);
+            }
+
+            $add->image = fileUploader($image, getFilePath('advertisement'), $size, $old);
         }
 
         $add->user_id = Status::ADMIN;
-        $add->add_size = $request->add_size;
+        $add->add_size = $request->size;
         $add->day = $request->day;
         if (isset($request->status)) {
             if ($add->user_id != Status::DISABLE) {
@@ -118,7 +181,6 @@ class AdvertiseController extends Controller
 
         $notify[] = ['success', $message];
         return back()->withNotify($notify);
-
     }
 
     public function addsStatus($id)

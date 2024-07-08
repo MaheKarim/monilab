@@ -48,7 +48,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mrb-30">
                         <div class="dash-item d-flex flex-wrap justify-content-between text-right">
                             <div class="dash-icon">
-                                <i class="las la-wallet"></i>
+                                <i class="fas fa-wallet"></i>
                             </div>
                             <div class="dash-content">
                                 <h3 class="title">{{ showAmount(@$user->balance, 2) }}</h3>
@@ -103,7 +103,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mrb-30">
                         <div class="dash-item d-flex flex-wrap justify-content-between text-right">
                             <div class="dash-icon">
-                                <i class="las la-ad"></i>
+                                <i class="fas fa-ad"></i>
                             </div>
                             <div class="dash-content">
                                 <h3 class="title">{{ $user->adds()->count() }}</h3>
