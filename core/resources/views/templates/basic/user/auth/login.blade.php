@@ -6,7 +6,7 @@
                 <div class="row account-row justify-content-center align-items-center ml-b-20">
                     <div class="col-lg-12">
                         <div class="account-logo text-center">
-                            <a class="site-logo site-title" href="{{route('home')}}"><img src="{{getImage(getFilePath('logo_icon'))}}" alt="site-logo"></a>
+                            <a class="site-logo site-title" href="{{route('home')}}"><img src="{{getImage(getFilePath('logo_icon') . '/logo.png')}}" alt="site-logo"></a>
                         </div>
                         <div class="account-header">
                             <h2 class="title">@lang('Login Now')</h2>

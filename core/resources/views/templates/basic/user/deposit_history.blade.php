@@ -18,7 +18,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
                         <div class="table-responsive deposit-table-area">
-                            <table class="table custom--table">
+                            <table class="table custom--table deposit-table">
                                 <thead>
                                 <tr>
                                     <th>@lang('Gateway | Transaction')</th>

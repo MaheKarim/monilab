@@ -1,4 +1,4 @@
-<header>
+<header class="d-sidebar">
     <div class="header-navbar">
         <div class="navbar-toggle">
             <div class="nav-header">

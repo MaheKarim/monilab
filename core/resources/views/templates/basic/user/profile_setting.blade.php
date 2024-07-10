@@ -21,7 +21,7 @@
                     <form class="add-list-form" action="" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row justify-content-center ml-b-20">
-                            <div class="col-lg-4 mrb-20">
+                            <div class="col-xl-4 col-lg-5 mrb-20">
                                 <div class="profile-bar text-center">
                                     <div class="profile-content">
                                         <h3 class="title">{{ __($user->firstname) }} {{ __($user->lastname) }}</h3>
@@ -47,40 +47,40 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-8 mrb-20">
+                            <div class="col-xl-8 col-lg-7 mrb-20">
                                 <div class="row ml-b-20">
                                     <div class="col-lg-12 form-group">
                                         <h3 class="title text-white">@lang('Profile Update')</h3>
                                     </div>
-                                    <div class="col-lg-6 form-group">
+                                    <div class="col-xl-6 col-lg-12 col-sm-6 form-group">
                                         <label for="">@lang('First Name')</label>
                                         <input type="text" name="firstname" value="{{ __($user->firstname) }}" placeholder="@lang('First Name')" required>
                                     </div>
-                                    <div class="col-lg-6 form-group">
+                                    <div class="col-xl-6 col-lg-12 col-sm-6 form-group">
                                         <label for="">@lang('Last Name')</label>
                                         <input type="text" name="lastname" value="{{ __($user->lastname) }}" placeholder="@lang('Last Name')" required>
                                     </div>
-                                    <div class="col-lg-6 form-group">
+                                    <div class="col-xl-6 col-lg-12 col-sm-6 form-group">
                                         <label for="">@lang('Email')</label>
                                         <input type="email" name="email" value="{{ $user->email }}" placeholder="@lang('Your Email')" required>
                                     </div>
-                                    <div class="col-lg-6 form-group">
+                                    <div class="col-xl-6 col-lg-12 col-sm-6 form-group">
                                         <label for="">@lang('Phone No')</label>
                                         <input type="text" name="mobile" value="{{ $user->mobile }}"  placeholder="@lang('Mobile Number')">
                                     </div>
-                                    <div class="col-lg-6 form-group">
+                                    <div class="col-xl-6 col-lg-12 col-sm-6 form-group">
                                         <label for="">@lang('Address')</label>
                                         <input type="text" name="address" value="{{ @$user->address }}"  placeholder="@lang('Address')">
                                     </div>
-                                    <div class="col-lg-6 form-group">
+                                    <div class="col-xl-6 col-lg-12 col-sm-6 form-group">
                                         <label for="">@lang('State')</label>
                                         <input type="text" name="state" value="{{ @$user->state }}"  placeholder="@lang('State')">
                                     </div>
-                                    <div class="col-lg-6 form-group">
+                                    <div class="col-xl-6 col-lg-12 col-sm-6 form-group">
                                         <label for="">@lang('Zip Code')</label>
                                         <input type="text" name="zip" value="{{ @$user->zip }}"  placeholder="@lang('Zip Code')">
                                     </div>
-                                    <div class="col-lg-6 form-group">
+                                    <div class="col-xl-6 col-lg-12 col-sm-6 form-group">
                                         <label for="">@lang('City')</label>
                                         <input type="text" name="city" value="{{ @$user->city }}"  placeholder="@lang('City')">
                                     </div>

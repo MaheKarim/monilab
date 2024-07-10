@@ -18,18 +18,29 @@
                         <li><a href="{{ route('user.advertise.index') }}"><i class="fas fa-ad"></i>@lang('Advertising')</a></li>
                     </ul>
                 </div>
-                <div class="header-left-link">
 
-                </div>
-                <div class="language-select-list d-flex flex-wrap align-items-center">
-                    <div class="language-select">
-                        <select class="select-bar langSel language-select">
-{{--                            @foreach($language as $item)--}}
-{{--                                <option value="{{$item->code}}" @if(session('lang') == $item->code) selected  @endif>{{ __($item->code) }}</option>--}}
-{{--                            @endforeach--}}
-                        </select>
+                <div class="custom--dropdown">
+                    <div class="custom--dropdown__selected dropdown-list__item">
+                      <div class="thumb"> <img  src="{{ asset('assets/s-1.png') }}" alt="image"></div>
+                      <span class="text"> English </span>
                     </div>
+                    <ul class="dropdown-list">    
+                      <li class="dropdown-list__item " data-value="en">
+                         <a href="#" class="thumb"> <img  src="{{ asset('assets/s-1.png') }}" alt="image"></a>
+                         <span class="text"> English </span>
+                      </li>
+                      <li class="dropdown-list__item" data-value="hi">
+                        <a href="#" class="thumb"> <img  src="{{ asset('assets/s-2.png') }}" alt="image"> </a>
+                         <span class="text"> Hindi </span>
+                      </li>
+                      <li class="dropdown-list__item" data-value="es">
+                       <a href="#" class="thumb"> <img  src="{{ asset('assets/s-3.png') }}" alt="image"> </a>
+                         <span class="text"> Spanish </span>
+                      </li>
+                    </ul>
                 </div>
+
+                
                 <div class="header-search">
                     <form action="{{ route('search') }}" method="GET">
                         @csrf

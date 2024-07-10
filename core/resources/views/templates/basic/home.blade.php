@@ -174,7 +174,7 @@
                                 <div class="monitor-row d-flex flex-wrap justify-content-between align-items-start ml-b-10">
                                     <div class="monitor-col-left mrb-10">
                                         <div class="monitor-thumb">
-                                            <img src="{{ getImage(getFilePath('hyip')) }}" alt="monitor">
+                                            <img src="{{ getImage(getFilePath('hyip') . $item->image, getFilePath('hyip')) }}" alt="monitor">
                                         </div>
                                         <div class="monitor-thumb-content text-center">
                                             <h3 class="title text-white">@lang('Ratings')</h3>
