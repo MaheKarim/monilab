@@ -1,9 +1,10 @@
 @extends($activeTemplate.'layouts.master')
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+    @include($activeTemplate.'user.left-sidenav')
 
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
                 <div class="card custom--card">
                     <div class="card-header">
                         <h5>@lang('Checkout.com')</h5>
@@ -41,7 +42,7 @@
                                 </div>
                             </div>
                             <br>
-                            <button class="btn btn--base w-100" type="submit"> @lang('Submit')</button>
+                            <button class="btn btn--base w-100 cmn-btn" type="submit"> @lang('Submit')</button>
                         </form>
                     </div>
                 </div>

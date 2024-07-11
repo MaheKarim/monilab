@@ -26,7 +26,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn--base w-100">@lang('Pay Now')</button>
+                                        <button type="submit" class="btn btn--base cmn-btn w-100">@lang('Pay Now')</button>
                                     </div>
                                 </div>
                             </div>

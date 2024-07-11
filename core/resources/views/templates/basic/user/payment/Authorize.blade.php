@@ -1,5 +1,7 @@
 @extends($activeTemplate.'layouts.master')
 @section('content')
+    @include($activeTemplate.'user.left-sidenav')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -41,7 +43,7 @@
                                 </div>
                             </div>
                             <br>
-                            <button class="btn btn--base w-100" type="submit"> @lang('Submit')</button>
+                            <button class="btn btn--base w-100 cmn-btn" type="submit"> @lang('Submit')</button>
                         </form>
                     </div>
                 </div>

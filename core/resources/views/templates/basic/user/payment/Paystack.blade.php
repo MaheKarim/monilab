@@ -1,8 +1,9 @@
 @extends($activeTemplate.'layouts.master')
 @section('content')
-<div class="container">
+    @include($activeTemplate.'user.left-sidenav')
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card custom--card">
                 <div class="card-header">
                     <h5 class="card-title">@lang('Paystack')</h5>
@@ -20,7 +21,7 @@
                                 <strong>{{showAmount($deposit->amount)}}</strong>
                             </li>
                         </ul>
-                        <button type="button" class="btn btn--base w-100 mt-3" id="btn-confirm">@lang('Pay Now')</button>
+                        <button type="button" class="btn btn--base w-100 mt-3 cmn-btn" id="btn-confirm">@lang('Pay Now')</button>
                         <script
                             src="//js.paystack.co/v1/inline.js"
                             data-key="{{ $data->key }}"

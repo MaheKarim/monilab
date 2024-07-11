@@ -1,9 +1,10 @@
 @extends($activeTemplate.'layouts.master')
 
 @section('content')
-<div class="container">
+    @include($activeTemplate.'user.left-sidenav')
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card custom--card">
                 <div class="card-header">
                     <h5 class="card-title">@lang('Flutterwave')</h5>
@@ -19,7 +20,7 @@
                             <strong>{{showAmount($deposit->amount)}}</strong>
                         </li>
                     </ul>
-                    <button type="button" class="btn btn--base w-100 mt-3" id="btn-confirm" onClick="payWithRave()">@lang('Pay Now')</button>
+                    <button type="button" class="btn btn--base w-100 cmn-btn mt-3" id="btn-confirm" onClick="payWithRave()">@lang('Pay Now')</button>
                 </div>
             </div>
         </div>

@@ -82,7 +82,7 @@
                                                 </p>
                                             </div>
                                         </div>
-    
+
                                         <div class="deposit-info total-amount pt-3">
                                             <div class="deposit-info__title">
                                                 <p class="text">@lang('Total')</p>
@@ -92,7 +92,7 @@
                                                     {{ __(gs('cur_text')) }}</p>
                                             </div>
                                         </div>
-    
+
                                         <div class="deposit-info gateway-conversion d-none total-amount pt-2">
                                             <div class="deposit-info__title">
                                                 <p class="text">@lang('Conversion')
@@ -112,7 +112,7 @@
                                                 <p class="text">
                                                     <span class="in-currency"></span>
                                                 </p>
-    
+
                                             </div>
                                         </div>
                                         <div class="d-none crypto-message mb-3">

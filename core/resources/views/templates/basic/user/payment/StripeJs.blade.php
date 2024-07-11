@@ -1,8 +1,9 @@
 @extends($activeTemplate.'layouts.master')
 @section('content')
-<div class="container">
+    @include($activeTemplate.'user.left-sidenav')
+    <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card custom--card">
                 <div class="card-header">
                     <h5 class="card-title">@lang('Stripe Storefront')</h5>
@@ -40,7 +41,7 @@
     <script>
         (function ($) {
             "use strict";
-            $('button[type="submit"]').removeClass().addClass("btn btn--base w-100 mt-3").text("Pay Now");
+            $('button[type="submit"]').removeClass().addClass("btn btn--base w-100 cmn-btn mt-3").text("Pay Now");
         })(jQuery);
     </script>
 @endpush

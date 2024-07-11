@@ -1,9 +1,10 @@
 @extends($activeTemplate.'layouts.master')
 
 @section('content')
-<div class="container">
+    @include($activeTemplate.'user.left-sidenav')
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card custom--card">
                 <div class="card-header">
                     <h5 class="card-title">@lang('Razorpay')</h5>
@@ -39,7 +40,7 @@
     <script>
         (function ($) {
             "use strict";
-            $('input[type="submit"]').addClass("mt-4 btn btn--base w-100");
+            $('input[type="submit"]').addClass("mt-4 btn btn--base cmn-btn w-100");
         })(jQuery);
     </script>
 @endpush
