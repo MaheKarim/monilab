@@ -66,7 +66,7 @@
 
                                                 <div class="input-group">
                                                     <span class="input-group-text">{{ gs('cur_text') }}</span>
-                                                    <input type="text" class="form-control form--control" name="minimum"
+                                                    <input type="number" class="form-control form--control" name="minimum"
                                                            value="{{ @$hyip->minimum }}" required/>
                                                     <span class="input-group-text">{{ gs('cur_sym') }}</span>
                                                 </div>
@@ -78,7 +78,7 @@
                                                     class="form-control-label font-weight-bold">@lang('Maximum Deposit')</label>
                                                 <div class="input-group">
                                                     <div class="input-group-text">{{ gs('cur_text') }}</div>
-                                                    <input type="text" class="form-control form--control"
+                                                    <input type="number" class="form-control form--control"
                                                            name="maximum"
                                                            value="{{ @$hyip->maximum }}" required/>
                                                     <span class="input-group-text">{{ gs('cur_sym') }}</span>

@@ -191,7 +191,7 @@
                                                 <div class="invest-widget-btn">
                                                     <i class="far fa-calendar-alt"></i>
 
-                                                    @lang('Monitor Since') : <span>{{\Carbon\Carbon::createFromTimeStamp(strtotime($item->monitor_since ))->diffInDays()}} @lang('days')</span>
+                                                    @lang('Monitor Since') : <span>{{ ceil(\Carbon\Carbon::createFromTimeStamp(strtotime($item->monitor_since))->diffInDays()) }} @lang('days')</span>
                                                 </div>
                                                 <div class="invest-widget-btn payout-btn">
                                                     <i class="far fa-calendar-alt"></i>
@@ -393,7 +393,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="ModalLabel">@lang('Description')</h5>
-                        <button type="button" data-dismiss="modal" aria-label="Close">
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -401,7 +401,7 @@
                         <p class="hiyp-dec"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn cmn-btn" data-dismiss="modal">@lang('Close')</button>
+                        <button type="button" class="btn cmn-btn" data-bs-dismiss="modal">@lang('Close')</button>
                     </div>
                 </div>
             </div>
@@ -415,7 +415,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="ModalLabel">@lang('Vote Now')</h5>
-                        <button type="button" data-dismiss="modal" aria-label="Close">
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -433,7 +433,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn cmn-btn" data-dismiss="modal">@lang('Close')</button>
+                            <button type="button" class="btn cmn-btn" data-bs-dismiss="modal">@lang('Close')</button>
                             <button type="submit" class="btn cmn-btn">@lang('Submit')</button>
                         </div>
                     </form>
@@ -448,7 +448,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="ModalLabel">@lang('Report Now')</h5>
-                        <button type="button" data-dismiss="modal" aria-label="Close">
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -466,7 +466,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn cmn-btn" data-dismiss="modal">@lang('Close')</button>
+                            <button type="button" class="btn cmn-btn" data-bs-dismiss="modal">@lang('Close')</button>
                             <button type="submit" class="btn cmn-btn">@lang('Submit')</button>
                         </div>
                     </form>

@@ -21,7 +21,7 @@
             <h3 class="title">@lang('Top Monitor Sites')</h3>
             <ul class="payment-site-list">
                 @forelse ($top_monitor_hyips as $item)
-                    <li><a href="{{ $item->url }}" class="hyip-click" data-id="{{ $item->id }}" target="_blank">{{ __($item->name) }}</a> <span>{{\Carbon\Carbon::createFromTimeStamp(strtotime($item->monitor_since ))->diffInDays()}} @lang('Days')</span></li>
+                    <li><a href="{{ $item->url }}" class="hyip-click" data-id="{{ $item->id }}" target="_blank">{{ __($item->name) }}</a> <span>{{ ceil(\Carbon\Carbon::createFromTimeStamp(strtotime($item->monitor_since ))->diffInDays()) }} @lang('Days')</span></li>
                 @empty
                     <li>@lang('No top monitor site found')</li>
                 @endforelse
