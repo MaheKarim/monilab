@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="af80865c-5591-415c-8760-cb4b33d844f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/resources/views/admin/hyip/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/resources/views/admin/hyip/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/resources/views/admin/hyip/reports.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/resources/views/admin/hyip/reports.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/resources/views/templates/basic/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/resources/views/templates/basic/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/resources/views/templates/basic/partials/right-sidenav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/resources/views/templates/basic/partials/right-sidenav.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/resources/views/templates/basic/partials/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/resources/views/templates/basic/partials/header.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +228,7 @@
       <workItem from="1720617665595" duration="3313000" />
       <workItem from="1720677633891" duration="568000" />
       <workItem from="1720679630776" duration="29000" />
-      <workItem from="1720691137147" duration="5557000" />
+      <workItem from="1720691137147" duration="6505000" />
     </task>
     <servers />
   </component>

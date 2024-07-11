@@ -1,3 +1,4 @@
+@php use App\Constants\Status; @endphp
 
 <div class="header-top-section">
     <div class="custom-container">
@@ -19,28 +20,37 @@
                     </ul>
                 </div>
 
-                <div class="custom--dropdown">
-                    <div class="custom--dropdown__selected dropdown-list__item">
-                      <div class="thumb"> <img  src="{{ asset('assets/s-1.png') }}" alt="image"></div>
-                      <span class="text"> English </span>
-                    </div>
-                    <ul class="dropdown-list">    
-                      <li class="dropdown-list__item " data-value="en">
-                         <a href="#" class="thumb"> <img  src="{{ asset('assets/s-1.png') }}" alt="image"></a>
-                         <span class="text"> English </span>
-                      </li>
-                      <li class="dropdown-list__item" data-value="hi">
-                        <a href="#" class="thumb"> <img  src="{{ asset('assets/s-2.png') }}" alt="image"> </a>
-                         <span class="text"> Hindi </span>
-                      </li>
-                      <li class="dropdown-list__item" data-value="es">
-                       <a href="#" class="thumb"> <img  src="{{ asset('assets/s-3.png') }}" alt="image"> </a>
-                         <span class="text"> Spanish </span>
-                      </li>
-                    </ul>
-                </div>
+                    @if (gs('multi_language'))
+                        @php
+                            $language = App\Models\Language::all();
+                            $selectLang = $language->where('code', config('app.locale'))->first();
+                            $currentLang = session('lang')
+                                ? $language->where('code', session('lang'))->first()
+                                : $language->where('is_default', Status::YES)->first();
+                        @endphp
+                            <div class="custom--dropdown">
 
-                
+                            <div class="custom--dropdown__selected dropdown-list__item">
+                              <div class="thumb">
+                                  <img src="{{ getImage(getFilePath('language').'/'.$currentLang->image, getFileSize('language')) }}" alt="@lang('image')">
+                              </div>
+                              <span class="text"> {{ __(@$selectLang->name) }} </span>
+                            </div>
+                            <ul class="dropdown-list">
+                                @foreach ($language as $item)
+                                <li class="dropdown-list__item  @if (session('lang') == $item->code) selected @endif" data-value="{{ $item->code }}">
+                                     <a href="{{ route('lang', $item->code) }}" class="thumb">
+                                         <img src="{{ getImage(getFilePath('language') . '/' . $item->image, getFileSize('language')) }}"
+                                              alt="@lang('image')">
+                                     </a>
+                                     <span class="text"> {{ __($item->name) }} </span>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
                 <div class="header-search">
                     <form action="{{ route('search') }}" method="GET">
                         @csrf
