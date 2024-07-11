@@ -39,7 +39,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="bugModalLabel">@lang('Report & Request')</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <i class="las la-times"></i>
+          <i class="fas fa-times"></i>
         </button>
       </div>
       <form action class="disableSubmission" method="post">

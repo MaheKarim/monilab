@@ -124,6 +124,29 @@ $(document).on('click', '.mobile-header-right-icon, .close', function() {
     type: 'image'
   });
 
+    /*==================== custom dropdown select js ====================*/
+    $('.custom--dropdown > .custom--dropdown__selected').on('click', function () {
+      $(this).parent().toggleClass('open');
+    });
+    $('.custom--dropdown > .dropdown-list > .dropdown-list__item').on('click', function () {
+      $('.custom--dropdown > .dropdown-list > .dropdown-list__item').removeClass('selected');
+      $(this).addClass('selected').parent().parent().removeClass('open').children('.custom--dropdown__selected').html($(this).html());
+    });
+    $(document).on('keyup', function (evt) {
+      if ((evt.keyCode || evt.which) === 27) {
+        $('.custom--dropdown').removeClass('open');
+      }
+    });
+    $(document).on('click', function (evt) {
+      if ($(evt.target).closest(".custom--dropdown > .custom--dropdown__selected").length === 0) {
+        $('.custom--dropdown').removeClass('open');
+      }
+    });
+  
+    /*=============== custom dropdown select js end =================*/
+
+
+
   // scroll-to-top
   var ScrollTop = $(".scrollToTop");
   $(window).on('scroll', function () {

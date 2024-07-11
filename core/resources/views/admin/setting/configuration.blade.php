@@ -55,6 +55,18 @@
 
                         <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                             <div>
+                                <p class="fw-bold mb-0">@lang('KYC Verification')</p>
+                                <p class="mb-0">
+                                    <small>@lang('If you enable') <span class="fw-bold">@lang('KYC (Know Your Client)')</span> @lang('module, users must have to submit') <a href="{{ route('admin.kyc.setting') }}">@lang('the required data')</a>. @lang('Otherwise, any money out transaction will be prevented by this system.')</small>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" data-width="100%" data-size="large" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-height="35" data-on="@lang('Enable')" data-off="@lang('Disable')" name="kv" @if(gs('kv')) checked @endif>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
+                            <div>
                                 <p class="fw-bold mb-0">@lang('Email Verification')</p>
                                 <p class="mb-0">
                                     <small>

@@ -12,13 +12,13 @@
     <!-- fontawesome css link -->
     <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/fontawesome-all.min.css')}}">
     <!-- line-awesome webfont -->
-    <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/line-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/global/css/line-awesome.min.css')}}">
     <!-- magnific popup -->
     <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/magnific-popup.css')}}">
     <!-- nice-select css -->
     <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/nice-select.css')}}">
     <!-- bootstrap css link -->
-    <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/global/css/bootstrap.min.css')}}">
     <!-- swipper css link -->
     <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/swiper.min.css')}}">
     <!-- odometer css -->
@@ -104,11 +104,11 @@
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
 <!-- jquery -->
-<script src="{{asset($activeTemplateTrue.'js/jquery-3.7.1.min.js')}}"></script>
+<script src="{{ asset('assets/global/js/jquery-3.7.1.min.js') }}"></script>
 <!-- migarate-jquery -->
 <script src="{{asset($activeTemplateTrue.'js/jquery-migrate-3.4.1.js')}}"></script>
 <!-- bootstrap js -->
-<script src="{{asset($activeTemplateTrue.'js/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 <!-- magnific-popup js -->
 <script src="{{asset($activeTemplateTrue.'js/jquery.magnific-popup.js')}}"></script>
 <!-- isotope -->

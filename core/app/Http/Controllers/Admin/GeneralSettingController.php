@@ -15,7 +15,6 @@ class GeneralSettingController extends Controller
         $settings = json_decode(file_get_contents(resource_path('views/admin/setting/settings.json')));
         return view('admin.setting.system', compact('pageTitle','settings'));
     }
-
     public function general()
     {
         $pageTitle = 'General Setting';
@@ -75,6 +74,7 @@ class GeneralSettingController extends Controller
         $general->registration = $request->registration ? Status::ENABLE : Status::DISABLE;
         $general->agree = $request->agree ? Status::ENABLE : Status::DISABLE;
         $general->multi_language = $request->multi_language ? Status::ENABLE : Status::DISABLE;
+        $general->in_app_payment = $request->in_app_payment ? Status::ENABLE : Status::DISABLE;
         $general->save();
         $notify[] = ['success', 'System configuration updated successfully'];
         return back()->withNotify($notify);

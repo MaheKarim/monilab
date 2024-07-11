@@ -1,17 +1,13 @@
-@extends($activeTemplate . "layouts.auth")
+@extends($activeTemplate . 'layouts.frontend')
 @section("content")
     <div class="pd-b-100 pd-t-100">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="d-flex justify-content-end mb-2">
-                        <a class="fw-bold home-link" href="{{ route("home") }}"> <i class="las la-long-arrow-alt-left"></i> @lang("Go to Home")</a>
-                    </div>
+                <div class="col-md-12">
                     <div class="card custom--card">
                         <div class="card-header account-header">
                             <h5 class="card-title">{{ __($pageTitle) }}</h5>
                         </div>
-
                         <div class="card-body">
                             <form method="POST" action="{{ route("user.data.submit") }}">
                                 @csrf

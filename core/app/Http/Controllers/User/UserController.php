@@ -122,7 +122,6 @@ class UserController extends Controller
         return view('Template::user.transactions', compact('pageTitle','transactions','remarks'));
     }
 
-
     public function userData()
     {
         $user = auth()->user();
@@ -135,8 +134,23 @@ class UserController extends Controller
         $info       = json_decode(json_encode(getIpInfo()), true);
         $mobileCode = @implode(',', $info['code']);
         $countries  = json_decode(file_get_contents(resource_path('views/partials/country.json')));
-
-        return view('Template::user.user_data', compact('pageTitle', 'user', 'countries', 'mobileCode'));
+        $top_payment_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->where('top_payment_site', Status::ENABLE)->latest()->get();
+        $top_monitor_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->orderBy('monitor_since', 'asc')->latest()->limit(7)->get();
+        $reaction = Hyip::latest()->get();
+        $happy = $reaction->sum('happy');
+        $sad = $reaction->sum('sad');
+        $wow = $reaction->sum('wow');
+        $love = $reaction->sum('love');
+        $angry = $reaction->sum('angry');
+        return view('Template::user.user_data', compact('pageTitle','top_payment_hyips', 'top_monitor_hyips','user', 'countries', 'mobileCode', 'happy', 'sad', 'wow', 'love', 'angry'));
     }
 
     public function userDataSubmit(Request $request)

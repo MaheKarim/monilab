@@ -3,9 +3,9 @@
     @include($activeTemplate.'user.left-sidenav')
     <div class="main-body main-body-two">
         <div class="deposit-method-section pd-t-30 pd-b-30"></div>
-        <div class="container">
+        <div class="custom-container">
             <div class="row justify-content-center">
-                <div class="col-xl-9">
+                <div class="col-xl-10">
                     <form action="{{ route('user.deposit.insert') }}" method="post" class="deposit-form">
                         @csrf
                         <input type="hidden" name="currency">

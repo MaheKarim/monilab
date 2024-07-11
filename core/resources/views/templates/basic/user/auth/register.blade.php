@@ -3,94 +3,96 @@
 @section("content")
     @if (gs("registration"))
         <section class="register-section add-list-section">
-            <div class="container">
-                <div class="add-list-area">
-                    <div class="row justify-content-center account-row align-items-center ml-b-20">
-                        <div class="col-lg-12">
-                            <div class="account-logo text-center">
-                                <a class="site-logo site-title" href="{{ route("home") }}"><img src="{{ getImage(getFilePath("logo_icon") . "/logo.png") }}" alt="site-logo"></a>
-                            </div>
-                            <div class="account-header">
-                                <h5 class="title">@lang("Register")</h5>
-                            </div>
-                            <div class="account-area">
-
-                                <div class="account-form-area">
-                                    @include($activeTemplate . "partials.social_login")
-                                    <form class="verify-gcaptcha disableSubmission add-list-form" action="{{ route("user.register") }}" method="POST">
-                                        @csrf
-                                        <div class="row">
-                                            @if (session()->get("reference") != null)
-                                                <div class="col-md-6">
+            <div class="pd-t-70 pd-b-70">
+                <div class="container">
+                    <div class="add-list-area">
+                        <div class="row justify-content-center account-row align-items-center ml-b-20">
+                            <div class="col-lg-12">
+                                <div class="account-logo text-center">
+                                    <a class="site-logo site-title" href="{{ route("home") }}"><img src="{{ getImage(getFilePath("logo_icon") . "/logo.png") }}" alt="site-logo"></a>
+                                </div>
+                                <div class="account-header">
+                                    <h5 class="title">@lang("Register")</h5>
+                                </div>
+                                <div class="account-area">
+    
+                                    <div class="account-form-area">
+                                        @include($activeTemplate . "partials.social_login")
+                                        <form class="verify-gcaptcha disableSubmission add-list-form" action="{{ route("user.register") }}" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                                @if (session()->get("reference") != null)
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="referenceBy">@lang("Reference by")</label>
+                                                            <input class="form-control form--control" id="referenceBy" name="referBy" type="text" value="{{ session()->get("reference") }}" readonly>
+                                                        </div>
+                                                    </div>
+                                                @endif
+    
+                                                <div class="form-group col-sm-6">
+                                                    <label class="form-label">@lang("First Name")</label>
+                                                    <input class="form-control form--control" name="firstname" type="text" value="{{ old("firstname") }}" required>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label class="form-label">@lang("Last Name")</label>
+                                                    <input class="form-control form--control" name="lastname" type="text" value="{{ old("lastname") }}" required>
+                                                </div>
+    
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="referenceBy">@lang("Reference by")</label>
-                                                        <input class="form-control form--control" id="referenceBy" name="referBy" type="text" value="{{ session()->get("reference") }}" readonly>
+                                                        <label class="form-label">@lang("E-Mail Address")</label>
+                                                        <input class="form-control form--control checkUser" name="email" type="email" value="{{ old("email") }}" required>
                                                     </div>
                                                 </div>
+    
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">@lang("Password")</label>
+                                                        <input class="form-control form--control @if (gs("secure_password")) secure-password @endif" name="password" type="password" required>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">@lang("Confirm Password")</label>
+                                                        <input class="form-control form--control" name="password_confirmation" type="password" required>
+                                                    </div>
+                                                </div>
+    
+                                                <x-captcha />
+    
+                                            </div>
+    
+                                            @if (gs("agree"))
+                                                @php
+                                                    $policyPages = getContent("policy_pages.element", false, orderById: true);
+                                                @endphp
+                                                <div class="form-group form--check-label">
+                                                    <div class="d-flex align-items-center form-check">
+                                                        <input id="agree" name="agree" type="checkbox" @checked(old("agree")) required>
+                                                        <label for="agree">@lang("I agree with")</label>
+                                                    </div>
+                                                     <span class="form--check-label__link">
+                                                        @foreach ($policyPages as $policy)
+                                                            <a href="{{ route("policy.pages", $policy->slug) }}" target="_blank">{{ __($policy->data_values->title) }}</a>
+                                                            @if (!$loop->last)
+                                                                ,
+                                                            @endif
+                                                        @endforeach
+                                                    </span>
+                                                </div>
                                             @endif
-
-                                            <div class="form-group col-sm-6">
-                                                <label class="form-label">@lang("First Name")</label>
-                                                <input class="form-control form--control" name="firstname" type="text" value="{{ old("firstname") }}" required>
+                                            <div class="form-group">
+                                                <button class="submit-btn w-100" id="recaptcha" type="submit"> @lang("Register")</button>
                                             </div>
-                                            <div class="form-group col-sm-6">
-                                                <label class="form-label">@lang("Last Name")</label>
-                                                <input class="form-control form--control" name="lastname" type="text" value="{{ old("lastname") }}" required>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">@lang("E-Mail Address")</label>
-                                                    <input class="form-control form--control checkUser" name="email" type="email" value="{{ old("email") }}" required>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">@lang("Password")</label>
-                                                    <input class="form-control form--control @if (gs("secure_password")) secure-password @endif" name="password" type="password" required>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">@lang("Confirm Password")</label>
-                                                    <input class="form-control form--control" name="password_confirmation" type="password" required>
-                                                </div>
-                                            </div>
-
-                                            <x-captcha />
-
-                                        </div>
-
-                                        @if (gs("agree"))
-                                            @php
-                                                $policyPages = getContent("policy_pages.element", false, orderById: true);
-                                            @endphp
-                                            <div class="form-group form--check-label">
-                                                <div class="d-flex align-items-center form-check">
-                                                    <input id="agree" name="agree" type="checkbox" @checked(old("agree")) required>
-                                                    <label for="agree">@lang("I agree with")</label>
-                                                </div>
-                                                 <span class="form--check-label__link">
-                                                    @foreach ($policyPages as $policy)
-                                                        <a href="{{ route("policy.pages", $policy->slug) }}" target="_blank">{{ __($policy->data_values->title) }}</a>
-                                                        @if (!$loop->last)
-                                                            ,
-                                                        @endif
-                                                    @endforeach
-                                                </span>
-                                            </div>
-                                        @endif
-                                        <div class="form-group">
-                                            <button class="submit-btn w-100" id="recaptcha" type="submit"> @lang("Register")</button>
-                                        </div>
-                                        <p class="mb-0 text-white">@lang("Already have an account?")
-                                            <a href="{{ route("user.login") }}">@lang("Login")</a>
-                                        </p>
-                                    </form>
+                                            <p class="mb-0 text-white">@lang("Already have an account?")
+                                                <a href="{{ route("user.login") }}">@lang("Login")</a>
+                                            </p>
+                                        </form>
+                                    </div>
+    
                                 </div>
-
                             </div>
                         </div>
                     </div>

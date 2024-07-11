@@ -14,7 +14,7 @@
     <!-- fontawesome css link -->
     <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/fontawesome-all.min.css')}}">
     <!-- line-awesome webfont -->
-    <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/line-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/global/css/line-awesome.min.css')}}">
     <!-- magnific popup -->
     <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/magnific-popup.css')}}">
     <!-- nice-select css -->
@@ -78,7 +78,7 @@
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
 <!-- jquery -->
-<script src="{{asset($activeTemplateTrue.'js/jquery-3.7.1.min.js')}}"></script>
+<script src="{{asset('assets/global/js/jquery-3.7.1.min.js')}}"></script>
 <!-- migarate-jquery -->
 <script src="{{asset($activeTemplateTrue.'js/jquery-migrate-3.4.1.js')}}"></script>
 <!-- bootstrap js -->
@@ -110,15 +110,7 @@
 
 @stack('script-lib')
 
-
-
-{{--@include(activeTemplate().'partials.notify')--}}
-
-{{--@include('partials.plugins')--}}
-
-
 @stack('script')
-
 
 <script>
     (function ($) {

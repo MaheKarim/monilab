@@ -9,7 +9,6 @@ use App\Models\Deposit;
 use App\Models\Frontend;
 use App\Models\SupportTicket;
 use App\Models\User;
-use App\Models\Withdrawal;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
