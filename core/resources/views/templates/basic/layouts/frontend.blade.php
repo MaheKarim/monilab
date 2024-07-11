@@ -106,7 +106,7 @@
 <!-- jquery -->
 <script src="{{ asset('assets/global/js/jquery-3.7.1.min.js') }}"></script>
 <!-- migarate-jquery -->
-<script src="{{asset($activeTemplateTrue.'js/jquery-migrate-3.4.1.js')}}"></script>
+<script src="{{asset($activeTemplateTrue.'js/jquery-migrate-3.4.1.min.js')}}"></script>
 <!-- bootstrap js -->
 <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 <!-- magnific-popup js -->
@@ -123,7 +123,7 @@
 <script src="{{asset($activeTemplateTrue.'js/viewport.jquery.js')}}"></script>
 <!-- odometer js -->
 <script src="{{asset($activeTemplateTrue.'js/odometer.min.js')}}"></script>
-<script src="{{asset($activeTemplateTrue.'js/proper.min.js')}}"></script>
+<script src="{{asset($activeTemplateTrue.'js/popper.min.js')}}"></script>
 <!-- syotimer js -->
 <script src="{{asset($activeTemplateTrue.'js/jquery.syotimer.js')}}"></script>
 <script src="{{asset($activeTemplateTrue.'js/syotimer.lang.js')}}"></script>

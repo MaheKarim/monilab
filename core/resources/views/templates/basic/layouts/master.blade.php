@@ -73,14 +73,10 @@
 </div>
 @include($activeTemplate.'partials.footer')
 
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
 <!-- jquery -->
 <script src="{{asset('assets/global/js/jquery-3.7.1.min.js')}}"></script>
 <!-- migarate-jquery -->
-<script src="{{asset($activeTemplateTrue.'js/jquery-migrate-3.4.1.js')}}"></script>
+<script src="{{asset($activeTemplateTrue.'js/jquery-migrate-3.4.1.min.js')}}"></script>
 <!-- bootstrap js -->
 <script src="{{asset($activeTemplateTrue.'js/bootstrap.min.js')}}"></script>
 <script src="{{asset($activeTemplateTrue.'js/bootstrap.bundle.min.js')}}"></script>
