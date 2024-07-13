@@ -16,3 +16,10 @@
         </div>
     </div>
 </div>
+@push('style')
+    <style>
+        .register-disable{
+            border: 1px solid #cbc4c4;
+        }
+    </style>
+@endpush

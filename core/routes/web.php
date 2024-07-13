@@ -41,13 +41,13 @@ Route::controller('SiteController')->group(function () {
 
     Route::get('/', 'index')->name('home');
 
-    //Add Click Count
+    // Add Click Count
     Route::get('/add-count', 'clickCount')->name('click.count');
 
-    //Hyip Click Count
+    // Hyip Click Count
     Route::get('/hyip-click-count', 'hyipClickCount')->name('hyip.click.count');
 
-    //React
+    // React
     Route::get('/hyip-react/{id}', 'react')->name('react');
 
     Route::post('/hyip-vote', 'vote')->name('vote');

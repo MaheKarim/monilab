@@ -226,7 +226,36 @@ class SiteController extends Controller
             return to_route('home');
         }
         $maintenance = Frontend::where('data_keys','maintenance.data')->first();
-        return view('Template::maintenance',compact('pageTitle','maintenance'));
+
+        $top_payment_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->where('top_payment_site', Status::ENABLE)->latest()->get();
+
+        $top_monitor_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->orderBy('monitor_since', 'asc')->latest()->limit(7)->get();
+
+        $reaction = Hyip::latest()->get();
+
+        $happy = $reaction->sum('happy');
+        $sad = $reaction->sum('sad');
+        $wow = $reaction->sum('wow');
+        $love = $reaction->sum('love');
+        $angry = $reaction->sum('angry');
+
+        $latest_hyips = Hyip::where(function($query){
+            $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
+                $user->where('status', Status::ENABLE);
+            });
+        })->where('status', Status::ENABLE)->limit(6)->latest()->get();
+
+        $polls = Poll::where('status', Status::ENABLE)->get();
+
+        return view('Template::maintenance',compact('pageTitle','maintenance', 'top_payment_hyips', 'top_monitor_hyips', 'happy', 'sad', 'wow', 'love', 'angry', 'latest_hyips', 'polls'));
     }
 
     public function clickCount(Request $request){
@@ -325,8 +354,8 @@ class SiteController extends Controller
 
     public function vote(Request $request){
         $clientIP = request()->ip();
-        $hyip = Hyip::where('status',1)->where('id',$request->hyip_id)->firstOrFail();
-        $poll = Poll::where('status',1)->where('id',$request->poll_id)->firstOrFail();
+        $hyip = Hyip::where('status', Status::ENABLE)->where('id',$request->hyip_id)->firstOrFail();
+        $poll = Poll::where('status', Status::ENABLE)->where('id',$request->poll_id)->firstOrFail();
         $userpoll = UserPoll::where('hyip_id',$request->hyip_id)->where('ip',$clientIP)->count();
 
         if($userpoll > 0) {
@@ -422,8 +451,8 @@ class SiteController extends Controller
         return view('Template::home', $data);
     }
 
-    public function search(Request $request) {
-
+    public function search(Request $request)
+    {
         $data['hyips'] = Hyip::where(function($query){
             $query->where('user_id', Status::ADMIN)->orWhereHas('user', function ($user) {
                 $user->where('status', Status::ENABLE);
@@ -461,6 +490,6 @@ class SiteController extends Controller
 
         $data['polls'] = Poll::where('status', Status::ENABLE)->get();
 
-        return view(activeTemplate() . 'search', $data);
+        return view('Template::search', $data);
     }
 }

@@ -15,7 +15,7 @@
                                     <h5 class="title">@lang("Register")</h5>
                                 </div>
                                 <div class="account-area">
-    
+
                                     <div class="account-form-area">
                                         @include($activeTemplate . "partials.social_login")
                                         <form class="verify-gcaptcha disableSubmission add-list-form" action="{{ route("user.register") }}" method="POST">
@@ -29,7 +29,7 @@
                                                         </div>
                                                     </div>
                                                 @endif
-    
+
                                                 <div class="form-group col-sm-6">
                                                     <label class="form-label">@lang("First Name")</label>
                                                     <input class="form-control form--control" name="firstname" type="text" value="{{ old("firstname") }}" required>
@@ -38,32 +38,32 @@
                                                     <label class="form-label">@lang("Last Name")</label>
                                                     <input class="form-control form--control" name="lastname" type="text" value="{{ old("lastname") }}" required>
                                                 </div>
-    
+
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="form-label">@lang("E-Mail Address")</label>
                                                         <input class="form-control form--control checkUser" name="email" type="email" value="{{ old("email") }}" required>
                                                     </div>
                                                 </div>
-    
+
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label">@lang("Password")</label>
                                                         <input class="form-control form--control @if (gs("secure_password")) secure-password @endif" name="password" type="password" required>
                                                     </div>
                                                 </div>
-    
+
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label">@lang("Confirm Password")</label>
                                                         <input class="form-control form--control" name="password_confirmation" type="password" required>
                                                     </div>
                                                 </div>
-    
+
                                                 <x-captcha />
-    
+
                                             </div>
-    
+
                                             @if (gs("agree"))
                                                 @php
                                                     $policyPages = getContent("policy_pages.element", false, orderById: true);
@@ -91,7 +91,7 @@
                                             </p>
                                         </form>
                                     </div>
-    
+
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
             </div>
         </div>
     @else
-        @include($activeTemplate . "partials.registration_disabled")
+    @include($activeTemplate . "partials.registration_disabled")
     @endif
 
 @endsection
@@ -127,6 +127,7 @@
 
     @push("style")
         <style>
+
             .social-login-btn {
                 border: 1px solid #ffffff2e;
                 color: #fff;

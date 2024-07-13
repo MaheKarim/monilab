@@ -1,4 +1,4 @@
-@extends($activeTemplate . 'layouts.frontend')
+@extends($activeTemplate . 'layouts.auth')
 @section('content')
     <section class="maintenance-page flex-column justify-content-center">
         <div class="container">
