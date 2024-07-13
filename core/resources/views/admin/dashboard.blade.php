@@ -45,7 +45,98 @@
                 bg="warning"
             />
         </div><!-- dashboard-w1 end -->
-    </div><!-- row end-->
+    </div>
+
+    <div class="row gy-4 mt-2">
+        <div class="col-xxl-3 col-sm-6">
+            <x-widget
+                style="6"
+                link="{{route('admin.main.hyip.admin.list')}}"
+                title="Total Admin Hyip"
+                icon="far fa-user"
+                value="{{  $details['total_admin_hyip'] }}"
+                bg="success"
+                outline="true"
+            />
+        </div>
+        <div class="col-xxl-3 col-sm-6">
+            <x-widget
+                style="6"
+                link="{{route('admin.main.hyip.user.list')}}"
+                title="Total User Hyip"
+                icon="fas fa-user-tie"
+                value="{{$details['total_user_hyip']}}"
+                bg="warning"
+                outline="true"
+            />
+        </div>
+        <div class="col-xxl-3 col-sm-6">
+            <x-widget
+                style="6"
+                link="{{route('admin.main.hyip.user.list')}}"
+                title="Total User Pending Hyip"
+                icon="fas fa-spinner"
+                value="{{$details['total_user_pending_hyip']}}"
+                bg="danger"
+                outline="true"
+            />
+        </div>
+        <div class="col-xxl-3 col-sm-6">
+            <x-widget
+                style="6"
+                link="{{route('admin.main.hyip.user.list')}}"
+                title="Total User Hyip Update Pending"
+                icon="fas fa-pause-circle"
+                value="{{$details['total_user_hyip_update_pending']}}"
+                bg="primary"
+                outline="true"
+            />
+        </div>
+    </div>
+
+    <div class="row gy-4 mt-2">
+        <div class="col-xxl-3 col-sm-6">
+            <x-widget
+                style="5"
+                link="{{route('admin.advertise.admin')}}"
+                title="Total Admin Advertise"
+                icon="fab fa-adversal"
+                value="{{ $details['total_admin_add']  }}"
+                bg="primary"
+            />
+        </div>
+
+        <div class="col-xxl-3 col-sm-6">
+            <x-widget
+                style="5"
+                link="{{route('admin.advertise.user')}}"
+                title="Total User Advertise"
+                icon="fas fa-ad"
+                value="{{ $details['total_user_add']  }}"
+                bg="info"
+            />
+        </div>
+        <div class="col-xxl-3 col-sm-6">
+            <x-widget
+                style="5"
+                link="{{route('admin.advertise.user')}}"
+                title="Total User Pending Advertise"
+                icon="fas fa-spinner"
+                value="{{ $details['total_user_pending_add']  }}"
+                bg="warning"
+            />
+        </div>
+        <div class="col-xxl-3 col-sm-6">
+            <x-widget
+                style="5"
+                link="{{ route('admin.advertise.user') }}"
+                title="Total Active  Advertise"
+                icon="fas fa-check"
+                value="{{ $details['total_active_add'] }}"
+                bg="success"
+            />
+        </div>
+    </div>
 
     <div class="row mt-2 gy-4">
         <div class="col-xxl-12">
@@ -124,98 +215,17 @@
         </div>
     </div>
 
-
     <div class="row gy-4 mt-2">
-        <div class="col-xxl-3 col-sm-6">
+        <div class="col-xxl-12 col-sm-12">
             <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="success"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="warning"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="danger"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="7"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
+                style="6"
+                title="Total Payment Method"
+                icon="fas fa-wallet"
+                value="{{ $payment['payment_method'] }}"
                 bg="primary"
             />
-        </div><!-- dashboard-w1 end -->
-    </div><!-- row end-->
-
-
-
-    <div class="row gy-4 mt-2">
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="6"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="success"
-                outline="true"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="6"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="warning"
-                outline="true"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="6"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="danger"
-                outline="true"
-            />
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <x-widget
-                style="6"
-                link="#"
-                title="Demo"
-                icon="far fa-user"
-                value="xxx"
-                bg="primary"
-                outline="true"
-            />
-        </div><!-- dashboard-w1 end -->
-    </div><!-- row end-->
+        </div>
+    </div>
 
     <div class="row mb-none-30 mt-30">
         <div class="col-xl-12 mb-30">
@@ -233,6 +243,16 @@
               </div>
             </div>
           </div>
+    </div>
+    <div class="row gy-4 mt-2">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@lang('Hyip and Advertise Click Compare')</h5>
+                    <canvas id="hyip-add-click" width="400" height="240"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row mb-none-30 mt-5">
@@ -415,6 +435,75 @@
             @json(@$chart['user_country_counter']->keys()),
             @json(@$chart['user_country_counter']->flatten())
         );
+    </script>
+
+    @php
+        $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        $itr = 0;
+        $a_itr = 0;
+    @endphp
+    <script>
+        "use strict";
+        var config = {
+            type: 'line',
+            data: {
+                labels: @php echo json_encode($months) @endphp,
+                datasets: [{
+                    label: '@lang('Hyip Click')',
+                    backgroundColor: 'red',
+                    borderColor: 'red',
+                    data: [
+                        @foreach($months as $k => $month)
+                            @if(@$hyip_chart_data[$itr]['month'] == $month)
+                            {{ @$hyip_chart_data[$itr]['click'] }},
+                        @php $itr++; @endphp
+                            @else
+                            0,
+                        @endif
+                        @endforeach
+                    ],
+                    fill: false,
+                }, {
+                    label: '@lang('Advertise Click')',
+                    fill: false,
+                    backgroundColor: 'blue',
+                    borderColor: 'blue',
+                    data: [
+                        @foreach($months as $k => $month)
+                            @if(@$add_chart_data[$a_itr]['month'] == $month)
+                            {{ @$add_chart_data[$a_itr]['click'] }},
+                        @php $a_itr++; @endphp
+                            @else
+                            0,
+                        @endif
+                        @endforeach
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: '@lang('Hyip and Advertise Click Cpmpare Monthly')'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
+                            suggestedMin: 10,
+
+                            // the data maximum used for determining the ticks is Math.max(dataMax, suggestedMax)
+                            suggestedMax: 50
+                        }
+                    }]
+                }
+            }
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById('hyip-add-click').getContext('2d');
+            window.myLine = new Chart(ctx, config);
+        };
     </script>
 @endpush
 @push('style')
