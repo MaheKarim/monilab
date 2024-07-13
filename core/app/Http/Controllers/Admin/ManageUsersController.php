@@ -44,27 +44,12 @@ class ManageUsersController extends Controller
         return view('admin.users.list', compact('pageTitle', 'users'));
     }
 
-    public function kycUnverifiedUsers()
-    {
-        $pageTitle = 'KYC Unverified Users';
-        $users = $this->userData('kycUnverified');
-        return view('admin.users.list', compact('pageTitle', 'users'));
-    }
-
-    public function kycPendingUsers()
-    {
-        $pageTitle = 'KYC Unverified Users';
-        $users = $this->userData('kycPending');
-        return view('admin.users.list', compact('pageTitle', 'users'));
-    }
-
     public function emailVerifiedUsers()
     {
         $pageTitle = 'Email Verified Users';
         $users = $this->userData('emailVerified');
         return view('admin.users.list', compact('pageTitle', 'users'));
     }
-
 
     public function mobileUnverifiedUsers()
     {
@@ -73,7 +58,6 @@ class ManageUsersController extends Controller
         return view('admin.users.list', compact('pageTitle', 'users'));
     }
 
-
     public function mobileVerifiedUsers()
     {
         $pageTitle = 'Mobile Verified Users';
@@ -81,14 +65,12 @@ class ManageUsersController extends Controller
         return view('admin.users.list', compact('pageTitle', 'users'));
     }
 
-
     public function usersWithBalance()
     {
         $pageTitle = 'Users with Balance';
         $users = $this->userData('withBalance');
         return view('admin.users.list', compact('pageTitle', 'users'));
     }
-
 
     protected function userData($scope = null){
         if ($scope) {
@@ -98,7 +80,6 @@ class ManageUsersController extends Controller
         }
         return $users->searchable(['username','email'])->orderBy('id','desc')->paginate(getPaginate());
     }
-
 
     public function detail($id)
     {
@@ -111,45 +92,6 @@ class ManageUsersController extends Controller
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         return view('admin.users.detail', compact('pageTitle', 'user','totalDeposit','totalWithdrawals','totalTransaction','countries'));
     }
-
-
-    public function kycDetails($id)
-    {
-        $pageTitle = 'KYC Details';
-        $user = User::findOrFail($id);
-        return view('admin.users.kyc_detail', compact('pageTitle','user'));
-    }
-
-    public function kycApprove($id)
-    {
-        $user = User::findOrFail($id);
-        $user->kv = Status::KYC_VERIFIED;
-        $user->save();
-
-        notify($user,'KYC_APPROVE',[]);
-
-        $notify[] = ['success','KYC approved successfully'];
-        return to_route('admin.users.kyc.pending')->withNotify($notify);
-    }
-
-    public function kycReject(Request $request,$id)
-    {
-        $request->validate([
-            'reason'=>'required'
-        ]);
-        $user = User::findOrFail($id);
-        $user->kv = Status::KYC_UNVERIFIED;
-        $user->kyc_rejection_reason = $request->reason;
-        $user->save();
-
-        notify($user,'KYC_REJECT',[
-            'reason'=>$request->reason
-        ]);
-
-        $notify[] = ['success','KYC rejected successfully'];
-        return to_route('admin.users.kyc.pending')->withNotify($notify);
-    }
-
 
     public function update(Request $request, $id)
     {

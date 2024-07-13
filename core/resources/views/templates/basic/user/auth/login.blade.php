@@ -9,7 +9,7 @@
                             <a class="site-logo site-title" href="{{route('home')}}"><img src="{{getImage(getFilePath('logo_icon') .'/logo.png')}}" alt="site-logo"></a>
                         </div>
                         <div class="account-header">
-                            <h2 class="title">@lang('Login Now')</h2>
+                            <h2 class="title">@lang('Login Here')</h2>
                         </div>
                         <div class="account-area">
                             @include($activeTemplate . "partials.social_login")
@@ -120,6 +120,9 @@
 
         .register-disable-footer-link:hover {
             background-color: #440ef4;
+            color: #fff;
+        }
+        .register-disable-desc {
             color: #fff;
         }
     </style>
